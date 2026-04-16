@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import model.enums.*;
 
 public abstract class Person {
 protected String username;

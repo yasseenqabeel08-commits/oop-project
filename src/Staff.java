@@ -1,6 +1,7 @@
 import javax.management.relation.Role;
 import java.time.LocalDate;
 import java.util.Scanner;
+import model.enums.*;
 
 public abstract class Staff extends Person {
     protected Role role;
