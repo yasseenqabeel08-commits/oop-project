@@ -12,3 +12,4 @@ public class Receptionist extends Staff {
     public Invoice checkOut(Reservation reservation);
     public List<reservation> viewAllreservations;
 }
+//jjjjjjjj
