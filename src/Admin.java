@@ -1,5 +1,6 @@
 import javax.management.relation.Role;
 import java.time.LocalDate;
+import model.enums.*;
 
 public class Admin extends Staff {
     public Admin(){
