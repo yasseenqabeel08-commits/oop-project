@@ -35,5 +35,6 @@ public void setUsername(String username){this.username=username;}
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-    public void setGender(String gender){this.gender=gender;}
+    public void setGender(Gender gender){
+    this.gender=gender;}
 }

@@ -32,7 +32,7 @@ public abstract class Staff extends Person {
       }
     }
 
-    public List<Rooms> viewAllRooms(Room[] R){
+    public List<Room> viewAllRooms(Room[] R){
         for(int i=0;i<R.length;i++){
           System.out.println("Room:"+i+R[i]);
         }
