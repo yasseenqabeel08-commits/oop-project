@@ -20,6 +20,9 @@ public class Reservation {
         this.status = ReservationStatus.PENDING;
         this.totalCost = calculateTotal();
     }
+public void setRoom(Room room){
+        this.room=room;
+}
 
     public void setReservationId(int reservationId) {
         this.reservationId = reservationId;

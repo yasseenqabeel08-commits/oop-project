@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import amy.Reservation;
+import amy.invoice;
 import model.enums.*;
 
 
@@ -61,7 +62,7 @@ for (int i=0;i<rooms.length;i++){
 }return null;
 }
 public Reservation makeReservation(Room rooms, LocalDate startdate, LocalDate enddate){
-    if(rooms.isIsAvailable){
+    if(rooms.isAvailable){
         Scanner input = new Scanner(System.in);
         System.out.println("Enter your name: ");
         String name=input.nextLine();
@@ -79,10 +80,35 @@ public Reservation makeReservation(Room rooms, LocalDate startdate, LocalDate en
         return null;
     }
 }
-public void cancelReservarion(){
-
-
+public void cancelReservarion(int id,ArrayList<Reservation> reservations){
+    boolean found=false;
+for(Reservation res:reservations){
+    if(id== res.getReservationId()){
+        res.cancel();
+        found=true;
+        break;
     }
 
-public Invoice checkout();
+}
+if(!found){
+    System.out.println("Error: Reservation ID Not Found");
+}
+    }
+
+public invoice checkout(int id,ArrayList<Reservation> reservations ) {
+    for (Reservation res : reservations) {
+        if (id == res.getReservationId()) {
+            double total = res.calculateTotal();
+            res.completed();
+            res.getRoom().setIsAvailable(true);
+            int newID = (int) (Math.random() * 5000);
+            invoice myinvoice = new invoice(newID, total);
+            int invID = myinvoice.getInvoiceId();
+            myinvoice.generateinvoice();
+            myinvoice.markAsPaid();
+            System.out.println(myinvoice.printSummary());
+          return myinvoice;
+        }
+    }return null;
+}
 }
