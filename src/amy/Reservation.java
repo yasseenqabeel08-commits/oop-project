@@ -24,6 +24,9 @@ public class Reservation {
         this.checkOutDate=LocalDate.now();
 
     }
+public void setRoom(Room room){
+        this.room=room;
+}
 
     public void setReservationId(int reservationId) {
         this.reservationId = reservationId;

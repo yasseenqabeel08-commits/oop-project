@@ -75,15 +75,15 @@ public class Invoice {
             summary += "Status: PAID\n";
         } else {
             summary += "Status: UNPAID\n";
+        }  if (paymentMethod != null) {
+            summary += "Method: " + paymentMethod + "\n";
+        } else {
+            summary += "Method: N/A\n";
         }
         return summary;}
 
 
-    if (paymentMethod != null) {
-        summary += "Method: " + paymentMethod + "\n";
-    } else {
-        summary += "Method: N/A\n";
-    }
+
 
     public static void main(String[] args) {
 

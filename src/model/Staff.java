@@ -1,17 +1,17 @@
-package model;
-
+import javax.management.relation.Role;
 import java.time.LocalDate;
 import java.util.Scanner;
-
-import amy.Room;
 import model.enums.*;
 
 public abstract class Staff extends Person {
     protected Role role;
     protected int workinghours;
 
-    public Staff(String username, String password,String name, LocalDate dateOfBirth,Gender gender, Role role, int workinghours) {
-        super(username, password,name, dateOfBirth, gender);
+    public Staff(){
+        super();
+    }
+    public Staff(String username, String password, LocalDate dateOfBirth,Gender gender, Role role, int workinghours) {
+        super(username, password, dateOfBirth, gender);
         this.role = role;
         this.workinghours = workinghours;
     }
@@ -24,16 +24,15 @@ public abstract class Staff extends Person {
         if(typedname.equals(this.username) && typedPassword.equals(this.password)){
             System.out.println("Login Successful");
             return true;
-        }
-        return false;
+        }else{return false;}
     }
-    public void  viewAllGuests(Guest[] guests){
+    public List<Guest> viewAllGuests(Guest[] guests){
       for(int i=0;i<guests.length;i++){
-          System.out.println("model.Guest:"+i+guests[i]);
+          System.out.println("Guest:"+i+guests[i]);
       }
     }
 
-    public void viewAllRooms(Room[] R){
+    public List<Rooms> viewAllRooms(Room[] R){
         for(int i=0;i<R.length;i++){
           System.out.println("Room:"+i+R[i]);
         }
