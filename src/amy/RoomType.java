@@ -1,5 +1,7 @@
-
 package amy;
+
+import model.enums.*;
+
 
 
 public class RoomType {

@@ -1,5 +1,5 @@
-
 package amy;
+import model.enums.*;
 
 public class Amenity {
     private int amenityId;
