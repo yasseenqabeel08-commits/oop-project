@@ -1,5 +1,5 @@
 package model;
-import amy.*;
+import HotelRooms.*;
 import java.time.LocalDate;
 import java.util.List;
 import model.enums.*;

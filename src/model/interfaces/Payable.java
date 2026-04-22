@@ -1,6 +1,6 @@
 package model.interfaces;
 
-import amy.Invoice;
+import HotelRooms.Invoice;
 
 public interface Payable {
     boolean pay (double amount);

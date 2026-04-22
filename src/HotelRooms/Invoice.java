@@ -1,5 +1,4 @@
-package amy;
-import model.*;
+package HotelRooms;
 import model.enums.*;
 import java.time.*;
 

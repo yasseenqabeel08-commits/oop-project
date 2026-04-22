@@ -1,8 +1,7 @@
 package model;
-import amy.*;
 import java.time.LocalDate;
 
-import amy.Room;
+import HotelRooms.Room;
 import model.enums.*;
 
 public class Admin extends Staff  {

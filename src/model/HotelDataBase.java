@@ -1,5 +1,5 @@
 package model;
-import amy.*;
+import HotelRooms.*;
 import model.enums.Gender;
 import model.enums.PaymentMethod;
 import model.enums.Role;

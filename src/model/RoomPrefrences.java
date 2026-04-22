@@ -1,5 +1,5 @@
 package model;
-import amy.*;
+import HotelRooms.*;
 
 public class RoomPrefrences {
     RoomType preferredType;

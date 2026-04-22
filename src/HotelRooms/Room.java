@@ -1,7 +1,5 @@
 
-package amy;
-import model.*;
-import model.enums.*;
+package HotelRooms;
 import java.util.ArrayList;
 
 

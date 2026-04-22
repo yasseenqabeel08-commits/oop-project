@@ -1,10 +1,8 @@
 package model;
-import amy.*;
+import HotelRooms.*;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Scanner;
-import model.Guest;
-import model.Person;
+
 import model.enums.*;
 
 public abstract class Staff extends Person {

@@ -1,6 +1,4 @@
-package amy;
-import model.*;
-import model.enums.*;
+package HotelRooms;
 
 
 public class Amenity {
