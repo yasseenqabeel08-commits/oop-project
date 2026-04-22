@@ -1,13 +1,11 @@
+package model;
 import amy.*;
-import model.*;
 import model.enums.Gender;
 import model.enums.PaymentMethod;
 import model.enums.Role;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class HotelDataBase {
 private static HotelDataBase instance;
@@ -142,7 +140,7 @@ private static List<Guest> guests = new ArrayList<>();
             RoomPrefrences rp2=new RoomPrefrences(DOUBLE,2,true);
             RoomPrefrences rp3=new RoomPrefrences(SUITE,3,false);
             RoomPrefrences rp4=new RoomPrefrences(DELUXE,4,false);
-            Guest ahmed = new Guest("ahmed_h",  "Ahmed@1234", "Ahmed Hassan",
+            Guest ahmed = new Guest("ahmed_h","Ahmed@1234", "Ahmed Hassan",
                     LocalDate.of(1995, 3, 15), Gender.MALE, 5000.0, "Cairo, Egypt", rp1);
             Guest sara  = new Guest("sara_m",   "Sara@5678",  "Sara Mohamed",
                     LocalDate.of(1998, 7, 22), Gender.FEMALE, 8000.0, "Giza, Egypt",  rp2);

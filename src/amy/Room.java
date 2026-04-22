@@ -1,7 +1,7 @@
 
 package amy;
+import model.*;
 import model.enums.*;
-
 import java.util.ArrayList;
 
 

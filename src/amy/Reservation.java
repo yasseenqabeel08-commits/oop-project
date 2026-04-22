@@ -1,4 +1,5 @@
 package amy;
+import model.*;
 import model.Guest;
 import model.enums.*;
 import java.time.*;

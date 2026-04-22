@@ -1,4 +1,5 @@
 package amy;
+import model.*;
 import model.enums.*;
 import java.time.*;
 
@@ -10,10 +11,10 @@ public class Invoice {
     private PaymentMethod paymentMethod;
     private Reservation reservation;
 
-    public Invoice(int Id, Reservation reservation,PaymentMethod paymentMethod) {
+    public Invoice(int Id, Reservation reservation, PaymentMethod paymentMethod) {
         invoiceId = Id;
-        this.reservation=reservation;
-        this.paymentMethod=paymentMethod;
+        this.reservation = reservation;
+        this.paymentMethod = paymentMethod;
     }
 
 
@@ -60,10 +61,12 @@ public class Invoice {
     public void generateinvoice() {
         System.out.println("Invoice " + invoiceId + " is being processed...");
     }
+
     public void markAsPaid() {
         this.isPaid = true;
         System.out.println("Payment confirmed for Invoice " + invoiceId);
     }
+
     public String printSummary() {
         String summary = "--- HOTEL INVOICE ---\n";
         summary += "ID: " + invoiceId + "\n";
@@ -75,18 +78,18 @@ public class Invoice {
             summary += "Status: PAID\n";
         } else {
             summary += "Status: UNPAID\n";
-        }  if (paymentMethod != null) {
+        }
+        if (paymentMethod != null) {
             summary += "Method: " + paymentMethod + "\n";
         } else {
             summary += "Method: N/A\n";
         }
-        return summary;}
-
-
-
-
-    public static void main(String[] args) {
-
+        return summary;
     }
 }
+
+
+
+
+
 

@@ -1,6 +1,5 @@
 package model;
-
-import amy.RoomType;
+import amy.*;
 
 public class RoomPrefrences {
     RoomType preferredType;

@@ -1,9 +1,10 @@
+package model;
 import java.awt.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+import model.*;
 import amy.Invoice;
 import amy.Reservation;
 import amy.Room;
@@ -13,13 +14,14 @@ import model.enums.*;
 public class Guest extends Person {
 private double balance;
 private String address;
-private RoomPreference roompreference;
+private RoomPrefrences roompreference;
 
-public Guest(){
-    super();
-}
-public Guest(String username,String password, LocalDate dateOfBirth,Gender gender,double balance, String address, RoomPreference roompreference){
-        super( username, password, dateOfBirth,gender)
+//public Guest(){
+//    super();
+//}
+public Guest(String username,String password,String name, LocalDate dateOfBirth,Gender gender,double balance, String address, RoomPrefrences roompreference){
+
+        super( username, password,name,dateOfBirth,gender);
         this.balance=balance;
         this.address=address;
         this.roompreference=roompreference;
@@ -29,7 +31,7 @@ public Guest(String username,String password, LocalDate dateOfBirth,Gender gende
         System.out.println("Login Successful");
     }else{
         System.out.println("Wrong password");
-    }
+    } return null;
     }
 
     public void register(ArrayList<Guest> guestList){
@@ -61,7 +63,13 @@ for (int i=0;i<rooms.length;i++){
     }
 }return null;
 }
-public Reservation makeReservation();
-public void cancelReservarion();
-public Invoice checkout();
+public Reservation makeReservation(){
+    return null;
+}
+public void cancelReservarion(){
+
+};
+public Invoice checkout(){
+    return null;
+}
 }

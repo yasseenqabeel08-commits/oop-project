@@ -1,5 +1,5 @@
 package amy;
-
+import model.*;
 import model.enums.*;
 
 
