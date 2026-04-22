@@ -1,5 +1,8 @@
 
 package amy;
+import java.util.ArrayList;
+import  java.util.Scanner;
+
 
 
 public class Room {
@@ -31,7 +34,6 @@ public class Room {
     }
 
 
-
     public void setIsAvailable(boolean isAvailable) {
         this.isAvailable = isAvailable;
     }
@@ -61,7 +63,6 @@ public class Room {
     }
 
 
-
     public boolean isIsAvailable() {
         return isAvailable;
     }
@@ -69,10 +70,12 @@ public class Room {
     public int getFloor() {
         return floor;
     }
+
     public double calculateCost(int nights) {
         if (nights <= 0) {
             return 0;
         }
         return type.getBasePrice() * nights;
     }
+
 }

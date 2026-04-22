@@ -84,7 +84,9 @@ public void setRoom(Room room){
         this.totalCost = roomCost + amenitiesCost;
         return this.totalCost;
     }
-
+public Room getRoom() {
+        return room;
+}
 
 
     public void confirm() {
