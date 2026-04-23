@@ -33,7 +33,7 @@ public class Admin extends Staff implements Manageable {
 
     public void updateRoom(Room updatedRoom){
         if (updatedRoom == null) throw new IllegalArgumentException("Room cannot be null.");
-        List<Room> rooms = HotelDatabase.getInstance().getRooms();
+        List<Room> rooms = HotelDataBase.getInstance().getRooms();
         for (int i = 0; i < rooms.size(); i++) {
             if (rooms.get(i).getRoomId() == updatedRoom.getRoomId()) {
                 rooms.set(i, updatedRoom);
@@ -46,13 +46,13 @@ public class Admin extends Staff implements Manageable {
 
     public void addRoomType(RoomType roomType) {
         if (roomType == null) throw new IllegalArgumentException("RoomType cannot be null.");
-        HotelDatabase.getInstance().getRoomTypes().add(roomType);
+        HotelDataBase.getInstance().getRoomTypes().add(roomType);
         System.out.println("[ADMIN] RoomType '" + roomType.getTypeName() + "' added.");
     }
 
     public void updateRoomType(RoomType updatedType) {
         if (updatedType == null) throw new IllegalArgumentException("RoomType cannot be null.");
-        List<RoomType> types = HotelDatabase.getInstance().getRoomTypes();
+        List<RoomType> types = HotelDataBase.getInstance().getRoomTypes();
         for (int i = 0; i < types.size(); i++) {
             if (types.get(i).getTypeId() == updatedType.getTypeId()) {
                 types.set(i, updatedType);
@@ -64,12 +64,12 @@ public class Admin extends Staff implements Manageable {
     }
 
     public void deleteRoomType(int typeId) {
-        boolean inUse = HotelDatabase.getInstance().getRooms().stream()
+        boolean inUse = HotelDataBase.getInstance().getRooms().stream()
                 .anyMatch(r -> r.getRoomType().getTypeId() == typeId);
         if (inUse)
             throw new IllegalStateException("Cannot delete RoomType #" + typeId
                     + " — it is currently assigned to one or more rooms.");
-        boolean removed = HotelDatabase.getInstance().getRoomTypes()
+        boolean removed = HotelDataBase.getInstance().getRoomTypes()
                 .removeIf(t -> t.getTypeId() == typeId);
         if (!removed)
             throw new IllegalArgumentException("RoomType #" + typeId + " not found.");

@@ -21,7 +21,7 @@ public Guest(String username,String password,String name, LocalDate dateOfBirth,
         this.address=address;
         this.roompreference=roompreference;
     }
-    public void validatePassword(String inputpassword){
+    public void validatePassword (String inputpassword){
     if(this.password.equals(inputpassword)){
         System.out.println("Login Successful");
     }else{

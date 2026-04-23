@@ -1,18 +1,18 @@
-import javax.management.relation.Role;
+import model.*;
+import HotelRooms.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import amy.Reservation;
 import model.enums.*;
 
 public class Receptionist extends Staff {
     public Receptionist(){
         super();
     }
-    public Receptionist(String username, String password, LocalDate dateOfBirth, Gender gender, Role role, int workinghours){
-        super(username, password, dateOfBirth, gender,role,workinghours);
+    public Receptionist(String username, String password,String name, LocalDate dateOfBirth, Gender gender, Role role, int workinghours){
+        super(username, password,name, dateOfBirth, gender,role,workinghours);
     }
     public void checkIn(Reservation reservation){
         if(reservation!=null&& reservation.getStatus()==ReservationStatus.CONFIRMED){
@@ -29,7 +29,7 @@ public class Receptionist extends Staff {
         }
         reservation.completed();
 
-        Invoicde invoice=new Invoice(reservation,finalcost);
+        Invoice invoice=new Invoice(reservation,finalcost);
         System.out.println("Check out total cost="+finalcost);
         return invoice;
     }
