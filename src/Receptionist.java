@@ -30,15 +30,8 @@ public class Receptionist extends Staff {
         reservation.completed();
 
         Invoicde invoice=new Invoice(reservation,finalcost);
-            System.out.println("Check out total cost="+finalcost);
+        System.out.println("Check out total cost="+finalcost);
         return invoice;
     }
-
-    public List<Reservation> viewAllreservations( Reservation[] R){
-        List<Reservation> reservationsList = new ArrayList<>(Arrays.asList(R));
-        for(int i=0;i<R.length;i++){
-            System.out.println("Room:"+i+R[i]);
-        }return reservationsList;
-    }
+    
 }
-//jjjjjjjj

@@ -1,9 +1,10 @@
-
 package amy;
-
+import model.Guest;
+import model.enums.*;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+
 
 public class Reservation {
     private int reservationId;
@@ -12,13 +13,16 @@ public class Reservation {
     private ReservationStatus status;
     private double totalCost;
     private Room room;
+    private Guest guest;
 
-    Reservation(int reservationId){
+
+    public Reservation(int reservationId,Room room,Guest guest,LocalDate checkInDate,LocalDate checkOutDate){
         this.reservationId=reservationId;
+        this.room=room;
+        this.guest=guest;
         this.checkInDate=LocalDate.now();
         this.checkOutDate=LocalDate.now();
-        this.status = ReservationStatus.PENDING;
-        this.totalCost = calculateTotal();
+
     }
 public void setRoom(Room room){
         this.room=room;

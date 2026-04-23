@@ -1,9 +1,8 @@
-
-
 package amy;
+import model.enums.*;
 import java.time.*;
 
-public class invoice {
+public class Invoice {
     private int invoiceId;
     private LocalDate issueDate;
     private double totalAmount;
@@ -11,13 +10,12 @@ public class invoice {
     private PaymentMethod paymentMethod;
     private Reservation reservation;
 
-    public invoice(int Id, double amount) {
+    public Invoice(int Id, Reservation reservation,PaymentMethod paymentMethod) {
         invoiceId = Id;
-        totalAmount = amount;
-        this.issueDate = LocalDate.now();
-        this.isPaid = false;
+        this.reservation=reservation;
+        this.paymentMethod=paymentMethod;
     }
-    invoice(){}
+
 
     public void setInvoiceId(int invoiceId) {
         this.invoiceId = invoiceId;
