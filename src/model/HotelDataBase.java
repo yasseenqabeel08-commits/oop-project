@@ -9,14 +9,15 @@ import java.util.List;
 
 public class HotelDataBase {
 private static HotelDataBase instance;
-private static List<Guest> guests = new ArrayList<>();
-    private static List<Room> rooms = new ArrayList<>();
-    private static List<Reservation> reservations= new ArrayList<>();
-    private static List<Invoice> Invoices = new ArrayList<>();
-    private static List<Staff> staff = new ArrayList<>();
-    private static List<Amenity> amenities  = new ArrayList<>();
-    private static List<RoomType> roomTypes = new ArrayList<>();
+private static ArrayList<Guest> guests = new ArrayList<>();
+    private static ArrayList<Room> rooms = new ArrayList<>();
+    private static ArrayList<Reservation> reservations= new ArrayList<>();
+    private static ArrayList<Invoice> Invoices = new ArrayList<>();
+    private static ArrayList<Staff> staff = new ArrayList<>();
+    private static ArrayList<Amenity> amenities  = new ArrayList<>();
+    private static ArrayList<RoomType> roomTypes = new ArrayList<>();
     private HotelDataBase() {
+
         populateDummyData();
     }
     public static HotelDataBase getInstance(){
@@ -26,72 +27,30 @@ private static List<Guest> guests = new ArrayList<>();
         return instance;
         }
 
-    public static List<Room> getRooms() {
-        return rooms;
-    }
-
-    public static void setRooms(List<Room> rooms) {
-        HotelDataBase.rooms = rooms;
-    }
-
-    public static List<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public static void setReservations(List<Reservation> reservations) {
-        HotelDataBase.reservations = reservations;
-    }
-
-    public static List<Invoice> getInvoices() {
-        return Invoices;
-    }
-
-    public static void setInvoices(List<Invoice> Invoices) {
-        HotelDataBase.Invoices = Invoices;
-    }
-
-    public static List<Guest> getGuests() {
-        return guests;
-    }
-
-    public static void setGuests(List<Guest> guests) {
-        HotelDataBase.guests = guests;
-    }
-
-    public static List<Staff> getStaff() {
-        return staff;
-    }
-
-    public static void setStaff(List<Staff> staff) {
-        HotelDataBase.staff = staff;
-    }
-
-    public static List<Amenity> getAmenities() {
-        return amenities;
-    }
-
-    public static void setAmenities(List<Amenity> amenities) {
-        HotelDataBase.amenities = amenities;
-    }
-
-    public static List<RoomType> getRoomTypes() {
-        return roomTypes;
-    }
-
-    public static void setRoomTypes(List<RoomType> roomTypes) {
-        HotelDataBase.roomTypes = roomTypes;
-    }
+    // ── Getters ───────────────────────────────────────────────────────────────
+    public ArrayList<Guest>       getGuests()       { return guests;       }
+    public ArrayList<Staff>       getStaff()        { return staff;        }
+    public ArrayList<Room>        getRooms()        { return rooms;        }
+    public ArrayList<RoomType>    getRoomTypes()    { return roomTypes;    }
+    public ArrayList<Amenity>     getAmenities()    { return amenities;    }
+    public ArrayList<Reservation> getReservations() { return reservations; }
+    public ArrayList<Invoice>     getInvoices()     { return Invoices;     }
 
     RoomType SINGLE= new RoomType(1,"SINGLE","One Bed",300);
        RoomType DOUBLE= new RoomType(2,"DOUBLE","Two Beds",500);
        RoomType SUITE= new RoomType(3, "Suite", "Luxury room", 800);
        RoomType DELUXE= new RoomType (4, "Deluxe", "Large luxury room", 1000);
         public void populateDummyData(){
-            //roomtypes array
+            //clearing arrays
+            guests.clear(); staff.clear(); rooms.clear();
+            roomTypes.clear(); amenities.clear(); reservations.clear(); Invoices.clear();
+
+            //roomTypes array
             roomTypes.add(SINGLE);
             roomTypes.add(DOUBLE);
             roomTypes.add(SUITE);
             roomTypes.add(DELUXE);
+
             //amenities array
             Amenity wifi   = new Amenity(1,"WiFi",     "High-speed wireless internet",       0.0);
             Amenity tv     = new Amenity(2,"TV",       "50-inch smart TV with cable",        0.0);
@@ -105,9 +64,10 @@ private static List<Guest> guests = new ArrayList<>();
             amenities.add(pool);
             amenities.add(gym);
             amenities.add(jacuzzi);
-            //room
-            rooms.add(new Room(1,"100" ,SINGLE,1,true));
 
+            //room array
+
+            rooms.add(new Room(1,"100" ,SINGLE,1,true));
             rooms.add(new Room (2,"101" ,SINGLE,1,false));
             rooms.add(new Room(3,"102" ,SINGLE,1,false));
             rooms.add(new Room(4,"200" ,DOUBLE,2,true));
@@ -138,13 +98,12 @@ private static List<Guest> guests = new ArrayList<>();
             Room room9=rooms.get(8);
             Room room10=rooms.get(9);
             Room room11=rooms.get(10);
-//        guests.add(new model.Guest(" Moaz Sherif"));
-//        guests.add(new model.Guest("Yassen Ahmed"));
-//        guests.add(new model.Guest("Amy George"));
+          //RoomPrefrences array
             RoomPrefrences rp1=new RoomPrefrences(SINGLE,1,true);
             RoomPrefrences rp2=new RoomPrefrences(DOUBLE,2,true);
             RoomPrefrences rp3=new RoomPrefrences(SUITE,3,false);
             RoomPrefrences rp4=new RoomPrefrences(DELUXE,4,false);
+            // Guest Array
             Guest Yassen = new Guest("Yassen_a","Yassen@1234", "Yassen Ahmed ",
                     LocalDate.of(2008, 3, 15), Gender.MALE, 5000.0, "Cairo, Egypt", rp1);
             Guest Amy  = new Guest("Amy_a",   "Amy@5678",  "Amy George",
@@ -157,8 +116,7 @@ private static List<Guest> guests = new ArrayList<>();
             guests.add(Amy);
             guests.add(Moaz);
 
-
-
+            //Staff Array
             Admin admin1 = new Admin("admin_1", "model.Admin@0001", "Joyce Sherif",
                     LocalDate.of(2007, 5, 15), Gender.FEMALE, Role.ADMIN,40);
 
@@ -170,6 +128,7 @@ private static List<Guest> guests = new ArrayList<>();
               staff.add(admin1);
               staff.add(recept1);
               staff.add(recept2);
+              //Reservation Array
             Reservation res1 =new Reservation(1,room1,Yassen,LocalDate.now().minusDays( 1),LocalDate.now().plusDays(1));
             Reservation res2 =new Reservation(2,room8,Moaz,LocalDate.now().minusDays( 1),LocalDate.now().plusDays(7));
             Reservation res3 =new Reservation(3,room2,Amy,LocalDate.now().minusDays( 1),LocalDate.now().plusDays(4));
@@ -179,6 +138,7 @@ private static List<Guest> guests = new ArrayList<>();
             reservations.add(res1);
             reservations.add(res2);
             reservations.add(res3);
+            //Invoices Array
             Invoice inv1 = new Invoice(1,res1, PaymentMethod.CARD);
             inv1.markAsPaid();
             Invoices.add(inv1);
@@ -196,7 +156,7 @@ private static List<Guest> guests = new ArrayList<>();
 
 
         }
-
+      //Methods to find Guests,Staff,Rooms by its username and id
     public Guest findGuestByUsername(String username) {
         return guests.stream()
                 .filter(g -> g.getUsername().equalsIgnoreCase(username))

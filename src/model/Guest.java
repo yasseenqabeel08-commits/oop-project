@@ -24,22 +24,22 @@ public Guest(String username,String password,String name, LocalDate dateOfBirth,
         this.address=address;
         this.roompreference=roompreference;
     }
-    public String validatePassword(String inputpassword){
+    public void validatePassword(String inputpassword){
     if(this.password.equals(inputpassword)){
         System.out.println("Login Successful");
     }else{
         System.out.println("Wrong password");
-    } return null;
+    }
     }
 
-    public void register(ArrayList<Guest> guestList){
-    Scanner input = new Scanner(System.in);
-    System.out.println("Enter your name: ");
-    this.username= input.nextLine();
-    System.out.println("Enter your password: ");
-    this.password = input.nextLine();
-        guestList.add(this); // Line 6
-System.out.println("Registeration Successful");
+    public void register( Guest guest){
+        HotelDataBase db = HotelDataBase.getInstance();
+        boolean taken = db.getGuests().stream()
+                .anyMatch(g -> g.getUsername().equalsIgnoreCase(this.username));
+        if (taken)
+            throw new IllegalStateException("Username '" + username + "' is already taken.");
+        db.getGuests().add(this);
+        System.out.println("[REGISTER] Guest '" + username + "' registered successfully.");
 }
 public boolean login(){
     Scanner input = new Scanner(System.in);
