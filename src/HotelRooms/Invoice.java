@@ -11,6 +11,10 @@ public class Invoice {
     private Reservation reservation;
 
     public Invoice(int Id, Reservation reservation, PaymentMethod paymentMethod) {
+        if (reservation == null)
+            throw new IllegalArgumentException("Invoice must be linked to a reservation.");
+        if (paymentMethod == null)
+            throw new IllegalArgumentException("Payment method cannot be null.");
         invoiceId = Id;
         this.reservation = reservation;
         this.paymentMethod = paymentMethod;
@@ -58,6 +62,7 @@ public class Invoice {
     }
 
     public void generateinvoice() {
+
         System.out.println("Invoice " + invoiceId + " is being processed...");
     }
 

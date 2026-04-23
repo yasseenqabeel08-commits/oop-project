@@ -1,103 +1,133 @@
 
 package HotelRooms;
+import model.*;
 import java.util.ArrayList;
-
+import java.util.Collections;
+import java.util.List;
 
 public class Room {
-    private int roomId;
-    private String roomNumber;
-    private RoomType roomtype;
-    private boolean isAvailable;
-    private int floor;
-    private boolean smokingAllowed;
-    private ArrayList<Amenity> amenities;
-
-    public  Room(int roomId, String roomNumber, RoomType type, int floor,boolean isAvailable,boolean smokingAllowed) {
-        this.roomId = roomId;
-        this.roomNumber = roomNumber;
-        this.roomtype = type;
-        this.floor = floor;
-        this.isAvailable = isAvailable;
-        this.smokingAllowed=smokingAllowed;
 
 
-    }
-
-    public boolean isSmokingAllowed() {
-        return smokingAllowed;
-    }
-
-    public void setSmokingAllowed(boolean smokingAllowed) {
-        this.smokingAllowed = smokingAllowed;
-    }
-
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
-    }
-
-    public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-
-
-    public void setIsAvailable(boolean isAvailable) {
-        this.isAvailable = isAvailable;
-    }
-
-    public void setFloor(int floor) {
-        this.floor = floor;
-    }
-
-
-
-    public int getRoomId() {
-        return roomId;
-    }
-
-    public ArrayList<Amenity> getAmenities() {
-        return amenities;
-    }
-
-    public void setAmenities(ArrayList<Amenity> amenities) {
-        this.amenities = amenities;
-    }
-
-
-
-    public String getRoomNumber() {
-        return roomNumber;
-    }
-
-    public RoomType getRoomtype() {
-        return roomtype;
-    }
-
-    public void setRoomtype(RoomType roomtype) {
-        this.roomtype = roomtype;
-    }
-
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void addAmenity(Amenity aminity){
-        if(amenities !=null && !amenities.isEmpty()){
-            this.getAmenities().add(aminity) ;
-        }else {
-            amenities=new ArrayList<Amenity>();
-            amenities.add(aminity);
-
+    //datafields
+        private static int nextId=1;
+        private final int roomId;
+        private String roomNumber;
+        private RoomType type;
+        private double pricePerNight;
+        private boolean isAvailable;
+        private int floor;
+        private boolean smokingAllowed;
+        private ArrayList<Amenity> amenities;
+        //constructors
+        public Room(int roomId, String roomNumber, RoomType type, int floor,boolean isAvailable,boolean smokingAllowed) {
+            if (roomNumber == null || roomNumber.isBlank())
+                throw new IllegalArgumentException("Room number cannot be empty.");
+            if (type == null)
+                throw new IllegalArgumentException("Room must have a type.");
+            if (pricePerNight <= 0)
+                throw new IllegalArgumentException("Price per night must be > 0.");
+            this.roomId = nextId++;
+            this.roomNumber = roomNumber.trim();
+            this.type = type;
+            this.floor = floor;
+            this.isAvailable = true;
+        }
+        // method to add amenity
+        public void addAmenity(Amenity amenity) {
+            if (amenity != null && !amenities.contains(amenity))
+                amenities.add(amenity);
+        }
+        //method to remove amenity
+        public void removeAmenity(Amenity amenity) {
+            amenities.remove(amenity);
         }
 
 
-    }
-    public int getFloor() {
-        return floor;
-    }
-    public double calculateCost(int nights) {
-        if (nights <= 0) {
-            return 0;
+        //setter
+        public void setRoomNumber(String roomNumber) {
+            if (roomNumber == null || roomNumber.isBlank())
+                throw new IllegalArgumentException("Room number cannot be empty.");
+            this.roomNumber = roomNumber.trim();
         }
-        return roomtype.getBasePrice() * nights;
+
+        public void setRoomType(RoomType type) {
+            if (type == null) throw new IllegalArgumentException("Room type cannot be null.");
+            this.type = type;
+        }
+        public void setPricePerNight(double pricePerNight) {
+            if (pricePerNight <= 0)
+                throw new IllegalArgumentException("Price per night must be > 0.");
+            this.pricePerNight = pricePerNight;
+        }
+
+        public void setAvailable(boolean available)       { this.isAvailable    = available;    }
+        public void setFloor(int floor)                   { this.floor          = floor;        }
+        public void setSmokingAllowed(boolean smoking)    { this.smokingAllowed = smoking;      }
+        //getter
+        public ArrayList<Amenity> getAmenities() {
+            return Collections.unmodifiableList(amenities);
+        }
+        public int getRoomId() {
+            return roomId;
+        }
+
+        public String getRoomNumber() {
+            return roomNumber;
+        }
+
+//        public ArrayList getAmenities() {
+//            return amenities;
+//        }
+
+
+        public RoomType getRoomtype() {
+            return type;
+        }
+
+        public double getPricePerNight() {
+            return pricePerNight;
+        }
+
+        public boolean isAvailable() {
+            return isAvailable;
+        }
+
+        public int getFloor() {
+            return floor;
+        }
+
+        public boolean isSmokingAllowed() {
+            return smokingAllowed;
+        }
+
+        /**
+         * Cost calculation
+         * Calculate the total stay cost for the given number of nights.
+         * Includes the nightly room rate plus the daily cost of each amenity.
+         *
+         * @param nights number of nights (must be > 0)
+         * @return total cost in EGP
+         */
+        public double calculateCost(long nights) {
+            if (nights <= 0)
+                throw new IllegalArgumentException("Number of nights must be positive.");
+
+            double amenityCost = amenities.stream()
+                    .mapToDouble(Amenity::getCost)
+                    .sum();
+            return (pricePerNight + amenityCost) * nights;
+        }
+        public static void resetIdCounter() { nextId = 1; }
+
+        @Override
+        public String toString() {
+            String amenityNames = amenities.isEmpty() ? "None"
+                    : String.join(", ", amenities.stream()
+                    .map(Amenity::getName).toList());
+            return String.format(
+                    "[Room #%d] %s | %-10s | Floor %d | EGP %.2f/night | %-12s | Amenities: %s",
+                    roomId, roomNumber, type.getTypeName(), floor,
+                    pricePerNight, isAvailable ? "Available" : "Occupied", amenityNames);
+        }
+
     }
-}

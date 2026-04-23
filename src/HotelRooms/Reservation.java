@@ -17,6 +17,14 @@ public class Reservation {
 
 
     public Reservation(int reservationId,Room room,Guest guest,LocalDate checkInDate,LocalDate checkOutDate){
+        if (guest == null)         throw new IllegalArgumentException("Guest cannot be null.");
+        if (room  == null)         throw new IllegalArgumentException("Room cannot be null.");
+        if (checkInDate  == null)  throw new IllegalArgumentException("Check-in date cannot be null.");
+        if (checkOutDate == null)  throw new IllegalArgumentException("Check-out date cannot be null.");
+        if (!checkOutDate.isAfter(checkInDate))
+            throw new IllegalArgumentException("Check-out date must be after check-in date.");
+        if (!room.isAvailable())
+            throw new IllegalStateException("Room " + room.getRoomNumber() + " is not available.");
         this.reservationId=reservationId;
         this.room=room;
         this.guest=guest;
@@ -113,9 +121,21 @@ public Room getRoom() {
     public void cancel() {
         this.status = ReservationStatus.CANCELLED;
         if (this.room != null) {
-            this.room.setIsAvailable(true);
+            this.room.setAvailable(true);
         }
         System.out.println("Reservation " + reservationId + " has been cancelled.");
+    }
+    public String toString() {
+        return String.format(
+                "[Reservation #%d] %-15s | Room %s | %s → %s | %d nights | EGP %.2f | %s",
+                reservationId,
+                guest.getUsername(),
+                room.getRoomNumber(),
+//                checkInDate.format(FMT),
+//                checkOutDate.format(FMT),
+//                nights,
+                totalCost,
+                status);
     }
 }
 

@@ -51,25 +51,25 @@ public class Main {
             section("Scenario 2: Validation Error Examples");
 
 
-//            RoomPrefrences rp1=new RoomPrefrences(DB.getRoomTypes().get(0),1,true);
-//            Guest newGuest =   new Guest("bad_user","short@12233","Bad User",
-//                            LocalDate.of(1995,1,1),Gender.MALE,0,"cairo",rp1);
-//            newGuest.register(newGuest);
-//
-//            RoomPrefrences rp2=new RoomPrefrences(DB.getRoomTypes().get(0),1,true);
-//            Guest newGuest1 =  new Guest("bad_user2","nocaps123","Bad User",
-//                            LocalDate.of(1995,1,1),Gender.MALE,0,"",rp2);
-//            newGuest1.register(newGuest1);
-//
-//            RoomPrefrences rp3=new RoomPrefrences(DB.getRoomTypes().get(0),1,true);
-//            Guest newGuest2 =  new Guest("young_u","Young@123","Young User",
-//                            LocalDate.now().minusYears(16),Gender.FEMALE,0,"",rp3);
-//            newGuest2.register(newGuest2);
-//            RoomPrefrences rp4=new RoomPrefrences(DB.getRoomTypes().get(0),1,true);
-//                Guest dup = new Guest("ahmed_h","Ahmed@1234","Ahmed H2",
-//                        LocalDate.of(1993,2,1),Gender.MALE,100,"",rp4);
-//                dup.register(dup);
-//
+            RoomPrefrences rp1=new RoomPrefrences(DB.getRoomTypes().get(0),1,true);
+            Guest newGuest =   new Guest("bad_user","short@12233","Bad User",
+                            LocalDate.of(1995,1,1),Gender.MALE,0,"cairo",rp1);
+            newGuest.register(newGuest);
+
+            RoomPrefrences rp2=new RoomPrefrences(DB.getRoomTypes().get(0),1,true);
+            Guest newGuest1 =  new Guest("bad_user2","nocaps123","Bad User",
+                            LocalDate.of(1995,1,1),Gender.MALE,0,"",rp2);
+            newGuest1.register(newGuest1);
+
+            RoomPrefrences rp3=new RoomPrefrences(DB.getRoomTypes().get(0),1,true);
+            Guest newGuest2 =  new Guest("young_u","Young@123","Young User",
+                            LocalDate.now().minusYears(16),Gender.FEMALE,0,"",rp3);
+            newGuest2.register(newGuest2);
+            RoomPrefrences rp4=new RoomPrefrences(DB.getRoomTypes().get(0),1,true);
+                Guest dup = new Guest("ahmed_h","Ahmed@1234","Ahmed H2",
+                        LocalDate.of(1993,2,1),Gender.MALE,100,"",rp4);
+                dup.register(dup);
+
        }
     private static void section(String title) {
         System.out.println("\n──────────────────────────────────────────");
