@@ -1,4 +1,5 @@
 package model;
+import model.*;
 import HotelRooms.*;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -9,12 +10,10 @@ public abstract class Staff extends Person {
     protected Role role;
     protected int workinghours;
 
-    public Staff() {
-        super();
-    }
+
 
     public Staff(String username, String password, String name, LocalDate dateOfBirth, Gender gender, Role role, int workinghours) {
-        super(username, name, password, dateOfBirth, gender);
+        super(username, password,name, dateOfBirth, gender);
         this.role = role;
         this.workinghours = workinghours;
     }

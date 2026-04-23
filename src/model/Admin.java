@@ -1,5 +1,5 @@
+package model;
 import HotelRooms.*;
-import model.*;
 import model.enums.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -7,11 +7,9 @@ import java.util.List;
 import model.interfaces.Manageable;
 
 public class Admin extends Staff implements Manageable {
-    public Admin(){
-        super();
-    }
-    public Admin(String username, String password, LocalDate dateOfBirth, Gender gender, Role role, int workinghours){
-        super(username, password, dateOfBirth, gender,role,workinghours);
+
+    public Admin(String username, String password,String name ,LocalDate dateOfBirth, Gender gender, Role role, int workinghours){
+        super(username, password,name, dateOfBirth, gender,role,workinghours);
     }
     public void addRoom(Room room){
         if (room == null) throw new IllegalArgumentException("Room cannot be null.");
@@ -65,7 +63,7 @@ public class Admin extends Staff implements Manageable {
 
     public void deleteRoomType(int typeId) {
         boolean inUse = HotelDataBase.getInstance().getRooms().stream()
-                .anyMatch(r -> r.getRoomType().getTypeId() == typeId);
+                .anyMatch(r -> r.getRoomtype().getTypeId() == typeId);
         if (inUse)
             throw new IllegalStateException("Cannot delete RoomType #" + typeId
                     + " — it is currently assigned to one or more rooms.");
@@ -83,7 +81,7 @@ public class Admin extends Staff implements Manageable {
 
     public void addAmenity(Amenity amenity) {
         if (amenity == null) throw new IllegalArgumentException("Amenity cannot be null.");
-        HotelDatabase.getInstance().getAmenities().add(amenity);
+        HotelDataBase.getInstance().getAmenities().add(amenity);
         System.out.println("[ADMIN] Amenity '" + amenity.getName() + "' added.");
     }
     public void removeAmenityFromRoom(Room room, Amenity amenity) {
@@ -94,7 +92,7 @@ public class Admin extends Staff implements Manageable {
     }
     public void updateAmenity(Amenity updatedAmenity) {
         if (updatedAmenity == null) throw new IllegalArgumentException("Amenity cannot be null.");
-        List<Amenity> amenities = HotelDatabase.getInstance().getAmenities();
+        List<Amenity> amenities = HotelDataBase.getInstance().getAmenities();
         for (int i = 0; i < amenities.size(); i++) {
             if (amenities.get(i).getAmenityId() == updatedAmenity.getAmenityId()) {
                 amenities.set(i, updatedAmenity);
@@ -105,7 +103,7 @@ public class Admin extends Staff implements Manageable {
         throw new IllegalArgumentException("Amenity #" + updatedAmenity.getAmenityId() + " not found.");
     }
     public void deleteAmenity(int amenityId) {
-        boolean removed = HotelDatabase.getInstance().getAmenities()
+        boolean removed = HotelDataBase.getInstance().getAmenities()
                 .removeIf(a -> a.getAmenityId() == amenityId);
         if (!removed)
             throw new IllegalArgumentException("Amenity #" + amenityId + " not found.");
@@ -133,7 +131,7 @@ public class Admin extends Staff implements Manageable {
     @Override
     public Object findById(int id) {
         // Search rooms first, then room types, then amenities
-        HotelDatabase db = HotelDatabase.getInstance();
+        HotelDataBase db = HotelDataBase.getInstance();
 
         return db.getRooms().stream().filter(r -> r.getRoomId() == id).findFirst()
                 .<Object>map(r -> r)
@@ -145,22 +143,27 @@ public class Admin extends Staff implements Manageable {
     // ── View helpers ──────────────────────────────────────────────────────────
 
     public List<RoomType> viewAllRoomTypes() {
-        return List.copyOf(HotelDatabase.getInstance().getRoomTypes());
+        return List.copyOf(HotelDataBase.getInstance().getRoomTypes());
     }
 
     public List<Amenity> viewAllAmenities() {
-        return List.copyOf(HotelDatabase.getInstance().getAmenities());
+        return List.copyOf(HotelDataBase.getInstance().getAmenities());
     }
 
     public List<Invoice> viewAllInvoices() {
-        return List.copyOf(HotelDatabase.getInstance().getInvoices());
+        return List.copyOf(HotelDataBase.getInstance().getInvoices());
     }
 
     // ── Utility ───────────────────────────────────────────────────────────────
 
     @Override
+    public boolean login(String username, String password) {
+        return false;
+    }
+
+    @Override
     public String toString() {
-        return String.format("[Admin] %-20s | %s | %dh/week", username, fullName, workingHours);
+        return String.format("[model.Admin] %-20s | %s | %dh/week", username,name,workinghours);
     }
 
 }

@@ -6,21 +6,30 @@ import java.util.ArrayList;
 public class Room {
     private int roomId;
     private String roomNumber;
-    private RoomType type;
+    private RoomType roomtype;
     private boolean isAvailable;
     private int floor;
+    private boolean smokingAllowed;
     private ArrayList<Amenity> amenities;
 
-    public  Room(int roomId, String roomNumber, RoomType type, int floor,boolean isAvailable) {
+    public  Room(int roomId, String roomNumber, RoomType type, int floor,boolean isAvailable,boolean smokingAllowed) {
         this.roomId = roomId;
         this.roomNumber = roomNumber;
-        this.type = type;
+        this.roomtype = type;
         this.floor = floor;
         this.isAvailable = isAvailable;
+        this.smokingAllowed=smokingAllowed;
 
 
     }
 
+    public boolean isSmokingAllowed() {
+        return smokingAllowed;
+    }
+
+    public void setSmokingAllowed(boolean smokingAllowed) {
+        this.smokingAllowed = smokingAllowed;
+    }
 
     public void setRoomId(int roomId) {
         this.roomId = roomId;
@@ -29,11 +38,6 @@ public class Room {
     public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
     }
-
-    public void setType(RoomType type) {
-        this.type = type;
-    }
-
 
 
     public void setIsAvailable(boolean isAvailable) {
@@ -64,19 +68,18 @@ public class Room {
         return roomNumber;
     }
 
-    public RoomType getType() {
-        return type;
+    public RoomType getRoomtype() {
+        return roomtype;
     }
 
+    public void setRoomtype(RoomType roomtype) {
+        this.roomtype = roomtype;
+    }
 
-
-
-
-    public boolean isIsAvailable() {
-
-
+    public boolean isAvailable() {
         return isAvailable;
     }
+
     public void addAmenity(Amenity aminity){
         if(amenities !=null && !amenities.isEmpty()){
             this.getAmenities().add(aminity) ;
@@ -95,6 +98,6 @@ public class Room {
         if (nights <= 0) {
             return 0;
         }
-        return type.getBasePrice() * nights;
+        return roomtype.getBasePrice() * nights;
     }
 }

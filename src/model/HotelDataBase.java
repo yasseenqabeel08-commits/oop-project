@@ -67,17 +67,17 @@ private static ArrayList<Guest> guests = new ArrayList<>();
 
             //room array
 
-            rooms.add(new Room(1,"100" ,SINGLE,1,true));
-            rooms.add(new Room (2,"101" ,SINGLE,1,false));
-            rooms.add(new Room(3,"102" ,SINGLE,1,false));
-            rooms.add(new Room(4,"200" ,DOUBLE,2,true));
-            rooms.add(new Room(5,"201" ,DOUBLE,2,true));
-            rooms.add(new Room(6,"202" ,DOUBLE,2,false));
-            rooms.add(new Room(7,"300" ,SUITE,3,false));
-            rooms.add(new Room(8,"301" ,SUITE,3,true));
-            rooms.add(new Room(9,"302" ,SUITE,3,true));
-            rooms.add(new Room(10,"400" ,DELUXE,4,true));
-            rooms.add(new Room(11,"401" ,DELUXE,4,true));
+            rooms.add(new Room(1,"100" ,SINGLE,1,true,true));
+            rooms.add(new Room (2,"101" ,SINGLE,1,false,false));
+            rooms.add(new Room(3,"102" ,SINGLE,1,false,false));
+            rooms.add(new Room(4,"200" ,DOUBLE,2,true,true));
+            rooms.add(new Room(5,"201" ,DOUBLE,2,true,true));
+            rooms.add(new Room(6,"202" ,DOUBLE,2,false,false));
+            rooms.add(new Room(7,"300" ,SUITE,3,false,false));
+            rooms.add(new Room(8,"301" ,SUITE,3,true,true));
+            rooms.add(new Room(9,"302" ,SUITE,3,true,true));
+            rooms.add(new Room(10,"400" ,DELUXE,4,true,false));
+            rooms.add(new Room(11,"401" ,DELUXE,4,true,false));
             Room room1=rooms.get(0);
             room1.addAmenity(wifi);
             room1.addAmenity(tv);
@@ -105,11 +105,11 @@ private static ArrayList<Guest> guests = new ArrayList<>();
             RoomPrefrences rp4=new RoomPrefrences(DELUXE,4,false);
             // Guest Array
             Guest Yassen = new Guest("Yassen_a","Yassen@1234", "Yassen Ahmed ",
-                    LocalDate.of(2008, 3, 15), Gender.MALE, 5000.0, "Cairo, Egypt", rp1);
+                    LocalDate.of(2007, 3, 15), Gender.MALE, 5000.0, "Cairo, Egypt", rp1);
             Guest Amy  = new Guest("Amy_a",   "Amy@5678",  "Amy George",
                     LocalDate.of(2007, 7, 22), Gender.FEMALE, 8000.0, "Giza, Egypt",  rp2);
             Guest Moaz = new Guest("moaz_m",   "Moaz@9012",  "Moaz Sherif",
-                    LocalDate.of(2008, 6, 11),  Gender.MALE, 10000, "Alexandria, Egypt", rp3);
+                    LocalDate.of(2007, 6, 11),  Gender.MALE, 10000, "Alexandria, Egypt", rp3);
             Guest layla = new Guest("layla_s",  "Layla@3456", "Layla Said",
                     LocalDate.of(2000, 11, 30),Gender.FEMALE, 12000.0, "Sharm El-Sheikh, Egypt", rp4);
             guests.add(Yassen);
@@ -117,7 +117,7 @@ private static ArrayList<Guest> guests = new ArrayList<>();
             guests.add(Moaz);
 
             //Staff Array
-            Admin admin1 = new Admin("admin_1", "model.Admin@0001", "Joyce Sherif",
+            Admin admin1 = new Admin("admin_1", "Admin@0001", "Joyce Sherif",
                     LocalDate.of(2007, 5, 15), Gender.FEMALE, Role.ADMIN,40);
 
             Receptionist recept1 = new Receptionist("recept_1", "Recept@0001", "Angelina Mike",

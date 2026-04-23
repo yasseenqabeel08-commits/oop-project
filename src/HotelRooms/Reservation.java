@@ -68,6 +68,14 @@ public void setRoom(Room room){
         return totalCost;
     }
 
+    public Guest getGuest() {
+        return guest;
+    }
+
+    public void setGuest(Guest guest) {
+        this.guest = guest;
+    }
+
     public double calculateTotal(){
         long nights = ChronoUnit.DAYS.between(checkInDate, checkOutDate);
 
@@ -75,7 +83,7 @@ public void setRoom(Room room){
         if (nights <= 0) {
             nights = 1;
         }
-        double roomCost = nights * room.getType().getBasePrice();
+        double roomCost = nights * room.getRoomtype().getBasePrice();
         double amenitiesCost = 0.0;
         if (room.getAmenities() != null) {
             ArrayList<Amenity> amenityList = room.getAmenities();

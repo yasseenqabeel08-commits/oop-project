@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 import model.enums.*;
+import model.interfaces.Payable;
 
 public abstract class Person {
 protected String username;
@@ -11,7 +12,7 @@ protected String name;
 protected LocalDate dateOfBirth;
 protected Gender gender;
 
-public Person(){};
+
 public Person(String username,String password,String name, LocalDate dateOfBirth,Gender gender){
     validateUsername(username);
     validatePassword(password);
@@ -94,4 +95,4 @@ public void setUsername(String username){this.username=username;}
                 username, name, dateOfBirth, getAge(), gender);
     }
 }
-}
+
