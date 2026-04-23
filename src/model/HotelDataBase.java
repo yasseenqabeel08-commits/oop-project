@@ -1,13 +1,11 @@
+package model;
 import amy.*;
-import model.*;
 import model.enums.Gender;
 import model.enums.PaymentMethod;
 import model.enums.Role;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class HotelDataBase {
 private static HotelDataBase instance;
@@ -132,6 +130,11 @@ private static List<Guest> guests = new ArrayList<>();
             Room room6=rooms.get(5);
             Room room7=rooms.get(6);
             Room room8=rooms.get(7);
+            room8.addAmenity(wifi);
+            room8.addAmenity(tv);
+            room8.addAmenity(minibar);
+            room8.addAmenity(pool);
+            room8.addAmenity(jacuzzi);
             Room room9=rooms.get(8);
             Room room10=rooms.get(9);
             Room room11=rooms.get(10);
@@ -142,35 +145,47 @@ private static List<Guest> guests = new ArrayList<>();
             RoomPrefrences rp2=new RoomPrefrences(DOUBLE,2,true);
             RoomPrefrences rp3=new RoomPrefrences(SUITE,3,false);
             RoomPrefrences rp4=new RoomPrefrences(DELUXE,4,false);
-            Guest ahmed = new Guest("ahmed_h",  "Ahmed@1234", "Ahmed Hassan",
-                    LocalDate.of(1995, 3, 15), Gender.MALE, 5000.0, "Cairo, Egypt", rp1);
-            Guest sara  = new Guest("sara_m",   "Sara@5678",  "Sara Mohamed",
-                    LocalDate.of(1998, 7, 22), Gender.FEMALE, 8000.0, "Giza, Egypt",  rp2);
-            Guest omar  = new Guest("omar_k",   "Omar@9012",  "Omar Khalil",
-                    LocalDate.of(1992, 1, 5),  Gender.MALE, 3000.0, "Alexandria, Egypt", rp3);
+            Guest Yassen = new Guest("Yassen_a","Yassen@1234", "Yassen Ahmed ",
+                    LocalDate.of(2008, 3, 15), Gender.MALE, 5000.0, "Cairo, Egypt", rp1);
+            Guest Amy  = new Guest("Amy_a",   "Amy@5678",  "Amy George",
+                    LocalDate.of(2007, 7, 22), Gender.FEMALE, 8000.0, "Giza, Egypt",  rp2);
+            Guest Moaz = new Guest("moaz_m",   "Moaz@9012",  "Moaz Sherif",
+                    LocalDate.of(2008, 6, 11),  Gender.MALE, 10000, "Alexandria, Egypt", rp3);
             Guest layla = new Guest("layla_s",  "Layla@3456", "Layla Said",
                     LocalDate.of(2000, 11, 30),Gender.FEMALE, 12000.0, "Sharm El-Sheikh, Egypt", rp4);
-            guests.add(ahmed);
-            guests.add(sara);
+            guests.add(Yassen);
+            guests.add(Amy);
+            guests.add(Moaz);
 
 
-            Admin admin1 = new Admin("admin_1", "model.Admin@0001", "Mahmoud Ali",
-                    LocalDate.of(1985, 6, 10), Gender.MALE, Role.ADMIN,40);
 
-            Receptionist recept1 = new Receptionist("recept_1", "Recept@0001", "Nadia Fahmy",
-                    LocalDate.of(1993, 9, 14), Gender.FEMALE,Role.RECEPTIONIST ,40);
+            Admin admin1 = new Admin("admin_1", "model.Admin@0001", "Joyce Sherif",
+                    LocalDate.of(2007, 5, 15), Gender.FEMALE, Role.ADMIN,40);
 
-            Receptionist recept2 = new Receptionist("recept_2", "Recept@0002", "Khaled Nour",
-                    LocalDate.of(1990, 774, 25), Gender.MALE,Role.RECEPTIONIST ,35);
+            Receptionist recept1 = new Receptionist("recept_1", "Recept@0001", "Angelina Mike",
+                    LocalDate.of(1993, 9, 14), Gender.FEMALE,Role.RECEPTIONIST ,35);
+
+            Receptionist recept2 = new Receptionist("recept_2", "Recept@0002", "Youssef Fahmy",
+                    LocalDate.of(1990, 7, 25), Gender.MALE,Role.RECEPTIONIST ,35);
               staff.add(admin1);
               staff.add(recept1);
               staff.add(recept2);
-            Reservation res1 =new Reservation(1,room1,ahmed,LocalDate.now().minusDays( 1),LocalDate.now().plusDays(1));
+            Reservation res1 =new Reservation(1,room1,Yassen,LocalDate.now().minusDays( 1),LocalDate.now().plusDays(1));
+            Reservation res2 =new Reservation(2,room8,Moaz,LocalDate.now().minusDays( 1),LocalDate.now().plusDays(7));
+            Reservation res3 =new Reservation(3,room2,Amy,LocalDate.now().minusDays( 1),LocalDate.now().plusDays(4));
             res1.confirm();
+            res2.confirm();
+            res3.confirm();
             reservations.add(res1);
+            reservations.add(res2);
+            reservations.add(res3);
             Invoice inv1 = new Invoice(1,res1, PaymentMethod.CARD);
             inv1.markAsPaid();
             Invoices.add(inv1);
+            Invoice inv2 = new Invoice(2,res2, PaymentMethod.CARD);
+            inv2.markAsPaid();
+            Invoices.add(inv2);
+            Invoice inv3 = new Invoice(3,res3, PaymentMethod.CASH);
 
 
 

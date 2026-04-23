@@ -1,10 +1,7 @@
 package model;
-
+import amy.*;
 import java.time.LocalDate;
 import java.util.List;
-
-import amy.Reservation;
-import amy.Invoice;
 import model.enums.*;
 
 public class Receptionist extends Staff {

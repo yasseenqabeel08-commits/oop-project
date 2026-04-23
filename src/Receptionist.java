@@ -33,5 +33,5 @@ public class Receptionist extends Staff {
         System.out.println("Check out total cost="+finalcost);
         return invoice;
     }
-    
+
 }
