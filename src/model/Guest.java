@@ -1,12 +1,9 @@
 package model;
+import HotelRooms.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import HotelRooms.Invoice;
-import HotelRooms.Reservation;
-import HotelRooms.Room;
 import model.enums.*;
 
 public class Guest extends Person {
