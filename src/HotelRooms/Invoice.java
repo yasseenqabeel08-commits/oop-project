@@ -18,6 +18,8 @@ public class Invoice {
         invoiceId = Id;
         this.reservation = reservation;
         this.paymentMethod = paymentMethod;
+        this.issueDate = LocalDate.now();
+        this.totalAmount = reservation.getRoom().getPricePerNight();
     }
 
 
