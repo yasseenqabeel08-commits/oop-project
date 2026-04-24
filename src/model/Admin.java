@@ -154,6 +154,18 @@ public class Admin extends Staff implements Manageable {
         return List.copyOf(HotelDataBase.getInstance().getInvoices());
     }
 
+    public List<Guest> viewAllGuests() {
+        return List.copyOf(HotelDataBase.getInstance().getGuests());
+    }
+
+    public List<Reservation> viewAllReservations() {
+        return List.copyOf(HotelDataBase.getInstance().getReservations());
+    }
+
+    public List<Room> viewAllRooms() {
+        return List.copyOf(HotelDataBase.getInstance().getRooms());
+    }
+
     // ── Utility ───────────────────────────────────────────────────────────────
 
     @Override

@@ -127,9 +127,44 @@ public class Guest extends Person implements Payable {
         System.out.printf("[BALANCE] %s topped up by EGP %.2f. New balance: EGP %.2f%n",
                 username, amount, balance);
     }
+    public Invoice checkOut(int reservationId, PaymentMethod method) {
+        Reservation res = HotelDataBase.getInstance().getReservations().stream()
+                .filter(r -> r.getReservationId() == reservationId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Reservation #" + reservationId + " not found."));
+
+        if (res.getStatus() != ReservationStatus.CONFIRMED)
+            throw new IllegalStateException(
+                    "Cannot check out — reservation #" + reservationId
+                            + " must be CONFIRMED (current: " + res.getStatus() + ").");
+
+        double total = res.calculateTotal();
+        Guest  guest = res.getGuest();
+
+        if (method == PaymentMethod.BALANCE) {
+            boolean paid = guest.pay(total);
+            if (!paid)
+                throw new IllegalStateException(
+                        String.format("Guest '%s' has insufficient balance. Required: EGP %.2f",
+                                guest.getUsername(), total));
+        }
+
+        Invoice invoice = new Invoice(4,res, method);
+        invoice.markAsPaid();
+        res.completed();
+
+        HotelDataBase.getInstance().getInvoices().add(invoice);
+
+        System.out.printf("[CHECK-OUT] Guest '%s' checked out from Room %s.%n",
+                guest.getUsername(), res.getRoom().getRoomNumber());
+        System.out.println(invoice.printSummary());
+        return invoice;
+    }
 
     public void setAddress(String address)           { this.address       = address       == null ? "" : address.trim();       }
     public void setRoomPreferences(RoomPrefrences p) { this.roompreference = p; }
+
 
     // ── Utility ───────────────────────────────────────────────────────────────
 

@@ -55,6 +55,12 @@ public class Amenity {
     public double getCost() {
         return cost;
     }
+    @Override
+    public String toString() {
+        String cost = getCost() == 0 ? "Free" : String.format("EGP %.2f/night", getCost());
+        return String.format("[Amenity #%d] %-15s | %-30s | %s",
+                amenityId, name, description, cost);
+    }
 
 
 }

@@ -8,7 +8,7 @@ import java.util.List;
 public class Room {
 
 
-    //datafields
+    //data fields
         private static int nextId=1;
         private final int roomId;
         private String roomNumber;
@@ -17,9 +17,9 @@ public class Room {
         private boolean isAvailable;
         private int floor;
         private boolean smokingAllowed;
-        private ArrayList<Amenity> amenities;
+        private ArrayList<Amenity> amenities=new ArrayList<>();
         //constructors
-        public Room(int roomId, String roomNumber, RoomType type, int floor,boolean isAvailable,boolean smokingAllowed) {
+        public Room(int roomId, String roomNumber, RoomType type, double pricePerNight ,int floor,boolean isAvailable,boolean smokingAllowed) {
             if (roomNumber == null || roomNumber.isBlank())
                 throw new IllegalArgumentException("Room number cannot be empty.");
             if (type == null)
@@ -31,6 +31,7 @@ public class Room {
             this.type = type;
             this.floor = floor;
             this.isAvailable = true;
+            this.pricePerNight=pricePerNight;
         }
         // method to add amenity
         public void addAmenity(Amenity amenity) {
@@ -65,7 +66,7 @@ public class Room {
         public void setSmokingAllowed(boolean smoking)    { this.smokingAllowed = smoking;      }
         //getter
         public ArrayList<Amenity> getAmenities() {
-            return Collections.unmodifiableList(amenities);
+            return amenities;
         }
         public int getRoomId() {
             return roomId;
@@ -121,9 +122,16 @@ public class Room {
 
         @Override
         public String toString() {
-            String amenityNames = amenities.isEmpty() ? "None"
-                    : String.join(", ", amenities.stream()
-                    .map(Amenity::getName).toList());
+            String amenityNames=null;
+            if(!amenities.isEmpty()){
+                for(Amenity a:amenities){
+                    amenityNames=amenityNames + a.getName();
+
+                }
+            }else {
+                amenityNames="None";
+            }
+
             return String.format(
                     "[Room #%d] %s | %-10s | Floor %d | EGP %.2f/night | %-12s | Amenities: %s",
                     roomId, roomNumber, type.getTypeName(), floor,

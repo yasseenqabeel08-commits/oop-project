@@ -2,6 +2,7 @@ package model;
 
 import HotelRooms.*;
 import java.time.LocalDate;
+import java.util.List;
 
 import model.enums.*;
 
@@ -10,7 +11,8 @@ public class Receptionist extends Staff {
     public Receptionist(String username, String password,String name, LocalDate dateOfBirth, Gender gender, Role role, int workinghours){
         super(username, password,name, dateOfBirth, gender,role,workinghours);
     }
-    public void checkIn(Reservation reservation){
+    public void checkIn(int reservationId){
+        Reservation reservation=HotelDataBase.getInstance().findReservationById(reservationId);
         if(reservation!=null&& reservation.getStatus()==ReservationStatus.CONFIRMED){
             reservation.setStatus(ReservationStatus.CONFIRMED);
             System.out.println("Guest checked in for room:"+reservation.getRoom().getRoomNumber());
@@ -51,6 +53,9 @@ public class Receptionist extends Staff {
                 guest.getUsername(), res.getRoom().getRoomNumber());
         System.out.println(invoice.printSummary());
         return invoice;
+    }
+    public List<Reservation> viewAllReservations() {
+        return List.copyOf(HotelDataBase.getInstance().getReservations());
     }
 
     @Override

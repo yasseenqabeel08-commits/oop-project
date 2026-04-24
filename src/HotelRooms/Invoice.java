@@ -90,6 +90,15 @@ public class Invoice {
         }
         return summary;
     }
+    public String toString() {
+        return String.format("[Invoice #%d] Guest: %-15s | Room: %s | EGP %.2f | %s | %s",
+                invoiceId,
+                reservation.getGuest().getUsername(),
+                reservation.getRoom().getRoomNumber(),
+                totalAmount,
+                paymentMethod,
+                isPaid ? "PAID" : "UNPAID");
+    }
 }
 
 

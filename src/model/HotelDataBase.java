@@ -36,10 +36,10 @@ private static ArrayList<Guest> guests = new ArrayList<>();
     public ArrayList<Reservation> getReservations() { return reservations; }
     public ArrayList<Invoice>     getInvoices()     { return Invoices;     }
 
-    RoomType SINGLE= new RoomType(1,"SINGLE","One Bed",300);
-       RoomType DOUBLE= new RoomType(2,"DOUBLE","Two Beds",500);
-       RoomType SUITE= new RoomType(3, "Suite", "Luxury room", 800);
-       RoomType DELUXE= new RoomType (4, "Deluxe", "Large luxury room", 1000);
+    RoomType SINGLE= new RoomType(1,"SINGLE","One Bed",300.0);
+       RoomType DOUBLE= new RoomType(2,"DOUBLE","Two Beds",500.0);
+       RoomType SUITE= new RoomType(3, "Suite", "Luxury room", 800.0);
+       RoomType DELUXE= new RoomType (4, "Deluxe", "Large luxury room", 1000.0);
         public void populateDummyData(){
             //clearing arrays
             guests.clear(); staff.clear(); rooms.clear();
@@ -67,17 +67,17 @@ private static ArrayList<Guest> guests = new ArrayList<>();
 
             //room array
 
-            rooms.add(new Room(1,"100" ,SINGLE,1,true,true));
-            rooms.add(new Room (2,"101" ,SINGLE,1,false,false));
-            rooms.add(new Room(3,"102" ,SINGLE,1,false,false));
-            rooms.add(new Room(4,"200" ,DOUBLE,2,true,true));
-            rooms.add(new Room(5,"201" ,DOUBLE,2,true,true));
-            rooms.add(new Room(6,"202" ,DOUBLE,2,false,false));
-            rooms.add(new Room(7,"300" ,SUITE,3,false,false));
-            rooms.add(new Room(8,"301" ,SUITE,3,true,true));
-            rooms.add(new Room(9,"302" ,SUITE,3,true,true));
-            rooms.add(new Room(10,"400" ,DELUXE,4,true,false));
-            rooms.add(new Room(11,"401" ,DELUXE,4,true,false));
+            rooms.add(new Room(1,"100" ,SINGLE,500,1,true,true));
+            rooms.add(new Room (2,"101" ,SINGLE,400,1,false,false));
+            rooms.add(new Room(3,"102" ,SINGLE,350,1,false,false));
+            rooms.add(new Room(4,"200" ,DOUBLE,700,2,true,true));
+            rooms.add(new Room(5,"201" ,DOUBLE,550,2,true,true));
+            rooms.add(new Room(6,"202" ,DOUBLE,600,2,false,false));
+            rooms.add(new Room(7,"300" ,SUITE,1000,3,false,false));
+            rooms.add(new Room(8,"301" ,SUITE,900,3,true,true));
+            rooms.add(new Room(9,"302" ,SUITE,850,3,true,true));
+            rooms.add(new Room(10,"400" ,DELUXE,1200,4,true,false));
+            rooms.add(new Room(11,"401" ,DELUXE,1100,4,true,false));
             Room room1=rooms.get(0);
             room1.addAmenity(wifi);
             room1.addAmenity(tv);

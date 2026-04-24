@@ -1,12 +1,17 @@
 package HotelRooms;
 import model.Guest;
+import model.HotelDataBase;
 import model.enums.*;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 
 public class Reservation {
+    private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd MMM yyyy");
+
+
     private int reservationId;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
@@ -14,7 +19,7 @@ public class Reservation {
     private double totalCost;
     private Room room;
     private Guest guest;
-
+    private final long nights;
 
     public Reservation(int reservationId,Room room,Guest guest,LocalDate checkInDate,LocalDate checkOutDate){
         if (guest == null)         throw new IllegalArgumentException("Guest cannot be null.");
@@ -30,6 +35,12 @@ public class Reservation {
         this.guest=guest;
         this.checkInDate=LocalDate.now();
         this.checkOutDate=LocalDate.now();
+        this.nights        = ChronoUnit.DAYS.between(checkInDate, checkOutDate);
+        this.status        = ReservationStatus.PENDING;
+        this.totalCost     = room.calculateCost(this.nights);
+
+// Mark room as occupied immediately upon reservation creation
+        room.setAvailable(false);
 
     }
 public void setRoom(Room room){
@@ -125,15 +136,16 @@ public Room getRoom() {
         }
         System.out.println("Reservation " + reservationId + " has been cancelled.");
     }
+
     public String toString() {
         return String.format(
                 "[Reservation #%d] %-15s | Room %s | %s → %s | %d nights | EGP %.2f | %s",
                 reservationId,
                 guest.getUsername(),
                 room.getRoomNumber(),
-//                checkInDate.format(FMT),
-//                checkOutDate.format(FMT),
-//                nights,
+                checkInDate.format(FMT),
+                checkOutDate.format(FMT),
+                nights,
                 totalCost,
                 status);
     }
