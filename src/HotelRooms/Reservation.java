@@ -33,8 +33,8 @@ public class Reservation {
         this.reservationId=reservationId;
         this.room=room;
         this.guest=guest;
-        this.checkInDate=LocalDate.now();
-        this.checkOutDate=LocalDate.now();
+        this.checkInDate=checkInDate;
+        this.checkOutDate=checkOutDate;
         this.nights        = ChronoUnit.DAYS.between(checkInDate, checkOutDate);
         this.status        = ReservationStatus.PENDING;
         this.totalCost     = room.calculateCost(this.nights);
