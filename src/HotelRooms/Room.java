@@ -17,7 +17,7 @@ public class Room {
         private boolean isAvailable;
         private int floor;
         private boolean smokingAllowed;
-        private ArrayList<Amenity> amenities=new ArrayList<>();
+        private ArrayList<Amenity> amenities =new ArrayList<>();
         //constructors
         public Room(int roomId, String roomNumber, RoomType type, double pricePerNight ,int floor,boolean isAvailable,boolean smokingAllowed) {
             if (roomNumber == null || roomNumber.isBlank())
@@ -122,10 +122,10 @@ public class Room {
 
         @Override
         public String toString() {
-            String amenityNames=null;
+            String amenityNames="";
             if(!amenities.isEmpty()){
                 for(Amenity a:amenities){
-                    amenityNames=amenityNames + a.getName();
+                    amenityNames = amenityNames + a.getName() + ",";
 
                 }
             }else {
