@@ -14,7 +14,8 @@ public class Amenity {
             throw new IllegalArgumentException("Amenity name cannot be empty.");
         if (cost < 0)
             throw new IllegalArgumentException("Daily cost cannot be negative.");
-        this.amenityId = amenityId;
+
+        this.amenityId = nextId++;
         this.name = name;
         this.description = description;
         this.cost = cost;

@@ -25,6 +25,7 @@ public class Guest extends Person implements Payable {
         this.balance=balance;
         this.address=address;
         this.roompreference=roompreference;
+
     }
 
 
@@ -159,6 +160,7 @@ public class Guest extends Person implements Payable {
         System.out.printf("[CHECK-OUT] Guest '%s' checked out from Room %s.%n",
                 guest.getUsername(), res.getRoom().getRoomNumber());
         System.out.println(invoice.printSummary());
+        this.lastInvoice = invoice;
         return invoice;
     }
 

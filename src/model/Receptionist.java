@@ -3,6 +3,7 @@ package model;
 import HotelRooms.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import model.enums.*;
 
@@ -57,9 +58,34 @@ public class Receptionist extends Staff {
     public List<Reservation> viewAllReservations() {
         return List.copyOf(HotelDataBase.getInstance().getReservations());
     }
+    public List<Reservation> viewPendingReservations() {
+        return HotelDataBase.getInstance().getReservations().stream()
+                .filter(r -> r.getStatus() == ReservationStatus.PENDING)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public boolean login(String username, String password) {
         return false;
+    }
+    public void confirmReservation(int reservationId) {
+        Reservation res = HotelDataBase.getInstance()
+                .getReservations()
+                .stream()
+                .filter(r -> r.getReservationId() == reservationId)
+                .findFirst()
+                .orElse(null);
+
+        if (res == null) {
+            throw new IllegalArgumentException("Reservation not found.");
+        }
+
+        res.confirm();
+        System.out.println("Reservation " + reservationId + " confirmed.");
+    }
+    @Override
+    public String toString() {
+        return String.format("[Receptionist] %-20s | %s | %dh/week",
+                username, name, workinghours);
     }
 }

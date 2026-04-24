@@ -275,6 +275,8 @@ public class Main {
             System.out.println("  1. View all reservations");
             System.out.println("  2. Check in guest");
             System.out.println("  3. Check out guest");
+            System.out.println("  4. View pending reservations");
+            System.out.println("  5. Confirm reservation");
             System.out.println("  0. Back");
             System.out.print("  Choice: ");
 
@@ -298,6 +300,17 @@ public class Main {
                         };
                         recept.checkOut(id, pm);
                     } catch (Exception e) { System.out.println("  [ERROR] " + e.getMessage()); }
+                }
+                case "4" ->
+                    recept.viewPendingReservations().forEach(r -> System.out.println("    " + r));
+                case "5" -> {
+                    try {
+                        System.out.print("  Reservation ID: ");
+                        int id = Integer.parseInt(SC.nextLine().trim());
+                        recept.confirmReservation(id);
+                    } catch (Exception e) {
+                        System.out.println("  [ERROR] " + e.getMessage());
+                    }
                 }
 
                 case "0" -> active = false;

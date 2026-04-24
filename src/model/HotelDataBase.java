@@ -54,10 +54,10 @@ private static ArrayList<Guest> guests = new ArrayList<>();
             //amenities array
             Amenity wifi   = new Amenity(1,"WiFi",     "High-speed wireless internet",       0.0);
             Amenity tv     = new Amenity(2,"TV",       "50-inch smart TV with cable",        0.0);
-            Amenity minibar= new Amenity(2,"Mini-bar", "Stocked mini-bar, refreshed daily", 50.0);
-            Amenity pool   = new Amenity(3,"Pool",     "Access to rooftop infinity pool",  100.0);
-            Amenity gym    = new Amenity(4,"Gym",      "24-hour fully equipped gym",         80.0);
-            Amenity jacuzzi= new Amenity(5,"Jacuzzi",  "Private in-room jacuzzi",          150.0);
+            Amenity minibar= new Amenity(3,"Mini-bar", "Stocked mini-bar, refreshed daily", 50.0);
+            Amenity pool   = new Amenity(4,"Pool",     "Access to rooftop infinity pool",  100.0);
+            Amenity gym    = new Amenity(5,"Gym",      "24-hour fully equipped gym",         80.0);
+            Amenity jacuzzi= new Amenity(6,"Jacuzzi",  "Private in-room jacuzzi",          150.0);
             amenities.add(wifi);
             amenities.add(tv);
             amenities.add(minibar);

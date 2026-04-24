@@ -11,7 +11,7 @@ import java.util.*;
 public class Reservation {
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
-
+    private static int nextId = 1;
     private int reservationId;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
@@ -30,7 +30,7 @@ public class Reservation {
             throw new IllegalArgumentException("Check-out date must be after check-in date.");
         if (!room.isAvailable())
             throw new IllegalStateException("Room " + room.getRoomNumber() + " is not available.");
-        this.reservationId=reservationId;
+        this.reservationId=nextId++;
         this.room=room;
         this.guest=guest;
         this.checkInDate=checkInDate;
@@ -121,8 +121,10 @@ public Room getRoom() {
 
 
     public void confirm() {
+        if (status != ReservationStatus.PENDING) {
+            throw new IllegalStateException("Only pending reservations can be confirmed.");
+        }
         this.status = ReservationStatus.CONFIRMED;
-        System.out.println("Reservation " + reservationId + " is now confirmed.");
     }
     public void completed() {
         this.status = ReservationStatus.COMPLETED;
