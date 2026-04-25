@@ -127,7 +127,7 @@ private static ArrayList<Guest> guests = new ArrayList<>();
             room10.addAmenity(pool);
             room10.addAmenity(gym);
             Room room11=rooms.get(10);
-            room10.addAmenity(wifi);
+            room11.addAmenity(wifi);
             room11.addAmenity(tv);
             room11.addAmenity(minibar);
             room11.addAmenity(jacuzzi);
@@ -150,6 +150,7 @@ private static ArrayList<Guest> guests = new ArrayList<>();
             guests.add(Yassen);
             guests.add(Amy);
             guests.add(Moaz);
+            guests.add(layla);
 
             //Staff Array
             Admin admin1 = new Admin("admin_1", "Admin@0001", "Joyce Sherif",

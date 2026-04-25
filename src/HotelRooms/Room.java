@@ -31,6 +31,7 @@ public class Room {
             this.type = type;
             this.floor = floor;
             this.isAvailable = true;
+            this.smokingAllowed=smokingAllowed;
             this.pricePerNight=pricePerNight;
         }
         // method to add amenity
