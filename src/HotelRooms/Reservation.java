@@ -132,11 +132,25 @@ public Room getRoom() {
     }
 
     public void cancel() {
-        this.status = ReservationStatus.CANCELLED;
-        if (this.room != null) {
-            this.room.setAvailable(true);
+
+            if (status == ReservationStatus.CANCELLED) {
+                throw new IllegalStateException("Reservation already cancelled.");
+            }
+
+            if (status == ReservationStatus.COMPLETED) {
+                throw new IllegalStateException("Cannot cancel a completed reservation.");
+            }
+        if (LocalDate.now().isAfter(checkInDate)) {
+            throw new IllegalStateException("Cannot cancel after stay has started.");
         }
-        System.out.println("Reservation " + reservationId + " has been cancelled.");
+
+            this.status = ReservationStatus.CANCELLED;
+
+            // make room available again
+            if (room != null) {
+                room.setAvailable(true);
+            }
+
     }
 
     public String toString() {

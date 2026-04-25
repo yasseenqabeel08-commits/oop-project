@@ -277,6 +277,7 @@ public class Main {
             System.out.println("  3. Check out guest");
             System.out.println("  4. View pending reservations");
             System.out.println("  5. Confirm reservation");
+            System.out.println("  6. Cancel reservation");
             System.out.println("  0. Back");
             System.out.print("  Choice: ");
 
@@ -310,6 +311,20 @@ public class Main {
                         recept.confirmReservation(id);
                     } catch (Exception e) {
                         System.out.println("  [ERROR] " + e.getMessage());
+                    }
+                }
+                case "6" -> {
+                    System.out.print("Enter reservation ID to cancel: ");
+
+                    int id = Integer.parseInt(SC.nextLine().trim());
+
+                    Reservation res = DB.findReservationById(id);
+
+                    try {
+                        res.cancel();
+                        System.out.println("Reservation cancelled successfully.");
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
                     }
                 }
 
