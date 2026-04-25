@@ -15,7 +15,7 @@ public class Invoice {
             throw new IllegalArgumentException("Invoice must be linked to a reservation.");
         if (paymentMethod == null)
             throw new IllegalArgumentException("Payment method cannot be null.");
-        this.invoiceId = invoiceId;
+        this.invoiceId=Id;
         this.reservation = reservation;
         this.paymentMethod = paymentMethod;
         this.issueDate = LocalDate.now();

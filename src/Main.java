@@ -15,8 +15,8 @@ public class Main {
 
 
         System.out.println("╔═══════════════════════════════════════════╗");
-        System.out.println("║    Hotel Reservation System — Milestone 1  ║");
-        System.out.println("║       CSE241 · Ain Shams University        ║");
+        System.out.println("║   Hotel Reservation System — Milestone 1  ║");
+        System.out.println("║      CSE241 · Ain Shams University        ║");
         System.out.println("╚═══════════════════════════════════════════╝");
         System.out.println();
 
@@ -79,7 +79,7 @@ public class Main {
            } catch (Exception e) {
                System.out.println(e.getMessage());
            }
-           
+
        }
     private static void section(String title) {
         System.out.println("\n──────────────────────────────────────────");
