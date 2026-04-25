@@ -168,8 +168,10 @@ private static ArrayList<Guest> guests = new ArrayList<>();
             Reservation res2 =new Reservation(2,room8,Moaz,LocalDate.now().minusDays( 1),LocalDate.now().plusDays(7));
             Reservation res3 =new Reservation(3,room2,Amy,LocalDate.now().minusDays( 1),LocalDate.now().plusDays(4));
             res1.confirm();
+            res1.completed();
             res2.confirm();
             res3.confirm();
+            res3.completed();
             reservations.add(res1);
             reservations.add(res2);
             reservations.add(res3);
@@ -181,7 +183,8 @@ private static ArrayList<Guest> guests = new ArrayList<>();
             inv2.markAsPaid();
             Invoices.add(inv2);
             Invoice inv3 = new Invoice(3,res3, PaymentMethod.CASH);
-
+            inv3.markAsPaid();
+            Invoices.add(inv3);
 
 
 

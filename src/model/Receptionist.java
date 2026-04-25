@@ -68,6 +68,7 @@ public class Receptionist extends Staff {
     public boolean login(String username, String password) {
         return false;
     }
+
     public void confirmReservation(int reservationId) {
         Reservation res = HotelDataBase.getInstance()
                 .getReservations()
