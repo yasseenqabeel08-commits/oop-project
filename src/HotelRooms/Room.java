@@ -9,7 +9,7 @@ public class Room {
 
 
     //data fields
-        private static int nextId=1;
+
         private final int roomId;
         private String roomNumber;
         private RoomType type;
@@ -26,11 +26,11 @@ public class Room {
                 throw new IllegalArgumentException("Room must have a type.");
             if (pricePerNight <= 0)
                 throw new IllegalArgumentException("Price per night must be > 0.");
-            this.roomId = nextId++;
+            this.roomId = roomId;
             this.roomNumber = roomNumber.trim();
             this.type = type;
             this.floor = floor;
-            this.isAvailable = true;
+            this.isAvailable = isAvailable;
             this.smokingAllowed=smokingAllowed;
             this.pricePerNight=pricePerNight;
         }
@@ -119,7 +119,7 @@ public class Room {
                     .sum();
             return (pricePerNight + amenityCost) * nights;
         }
-        public static void resetIdCounter() { nextId = 1; }
+
 
         @Override
         public String toString() {

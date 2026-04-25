@@ -4,7 +4,6 @@ import java.time.*;
 
 public class Invoice {
     private int invoiceId;
-    private static int nextId = 1;
     private LocalDate issueDate;
     private double totalAmount;
     private boolean isPaid;
@@ -16,7 +15,7 @@ public class Invoice {
             throw new IllegalArgumentException("Invoice must be linked to a reservation.");
         if (paymentMethod == null)
             throw new IllegalArgumentException("Payment method cannot be null.");
-        invoiceId = nextId++;
+        this.invoiceId = invoiceId;
         this.reservation = reservation;
         this.paymentMethod = paymentMethod;
         this.issueDate = LocalDate.now();

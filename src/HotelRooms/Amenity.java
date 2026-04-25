@@ -3,7 +3,6 @@ package HotelRooms;
 
 public class Amenity {
     //  Auto-increment counter
-    private static int nextId = 1;
     private int amenityId;
     private String name;
     private String description;
@@ -15,7 +14,7 @@ public class Amenity {
         if (cost < 0)
             throw new IllegalArgumentException("Daily cost cannot be negative.");
 
-        this.amenityId = nextId++;
+        this.amenityId = amenityId;
         this.name = name;
         this.description = description;
         this.cost = cost;
@@ -39,7 +38,7 @@ public class Amenity {
         this.cost = Cost;
     }
     /** Reset the ID counter — used only during testing / database reload. */
-    public static void resetIdCounter() { nextId = 1; }
+
 
     public int getAmenityId() {
         return amenityId;

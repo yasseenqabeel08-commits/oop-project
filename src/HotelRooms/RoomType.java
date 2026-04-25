@@ -3,7 +3,6 @@ package HotelRooms;
 
 public class RoomType {
     private int typeId;
-    private static int nextId = 1;
     private String typeName;
     private String description;
     private double basePrice;
@@ -12,7 +11,7 @@ public class RoomType {
             throw new IllegalArgumentException("Room type name cannot be empty.");
         if (basePrice <= 0)
             throw new IllegalArgumentException("Base price must be greater than zero.");
-        this.typeId = nextId++;
+        this.typeId = typeId;
         this.typeId=typeId;
         this.typeName = typeName;
         this.description = description;

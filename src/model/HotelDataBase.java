@@ -16,10 +16,6 @@ private static ArrayList<Guest> guests = new ArrayList<>();
     private static ArrayList<Staff> staff = new ArrayList<>();
     private static ArrayList<Amenity> amenities  = new ArrayList<>();
     private static ArrayList<RoomType> roomTypes = new ArrayList<>();
-    private HotelDataBase() {
-
-        populateDummyData();
-    }
     public static HotelDataBase getInstance(){
         if (instance==null) {
             instance = new HotelDataBase();
@@ -167,7 +163,7 @@ private static ArrayList<Guest> guests = new ArrayList<>();
               //Reservation Array
             Reservation res1 =new Reservation(1,room1,Yassen,LocalDate.now().minusDays( 1),LocalDate.now().plusDays(1));
             Reservation res2 =new Reservation(2,room8,Moaz,LocalDate.now().minusDays( 1),LocalDate.now().plusDays(7));
-            Reservation res3 =new Reservation(3,room2,Amy,LocalDate.now().minusDays( 1),LocalDate.now().plusDays(4));
+            Reservation res3 =new Reservation(3,room5,Amy,LocalDate.now().minusDays( 1),LocalDate.now().plusDays(4));
             res1.confirm();
             res1.completed();
             res2.confirm();

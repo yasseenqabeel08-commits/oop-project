@@ -59,7 +59,7 @@ public class Main {
                             LocalDate.of(1995,1,1),Gender.MALE,0,"cairo",rp1);
             newGuest.register(newGuest);
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
 
            try {
@@ -68,7 +68,7 @@ public class Main {
                        LocalDate.of(1995, 1, 1), Gender.MALE, 0, "", rp2);
                newGuest1.register(newGuest1);
            } catch (Exception e) {
-               e.printStackTrace();
+               System.out.println(e.getMessage());
            }
 
            try {
@@ -77,18 +77,9 @@ public class Main {
                        LocalDate.now().minusYears(16), Gender.FEMALE, 0, "", rp3);
                newGuest2.register(newGuest2);
            } catch (Exception e) {
-                e.printStackTrace();
+               System.out.println(e.getMessage());
            }
-           try {
-               RoomPrefrences rp4 = new RoomPrefrences(DB.getRoomTypes().get(0), 1, true);
-
-               Guest dup = new Guest("ahmed_h", "Ahmed@1234", "Ahmed H2",
-                       LocalDate.of(1993, 2, 1), Gender.MALE, 100, "", rp4);
-               dup.register(dup);
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
-
+           
        }
     private static void section(String title) {
         System.out.println("\n──────────────────────────────────────────");

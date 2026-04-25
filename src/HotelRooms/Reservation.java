@@ -11,7 +11,6 @@ import java.util.*;
 public class Reservation {
     private static final DateTimeFormatter FMT = DateTimeFormatter.ofPattern("dd MMM yyyy");
 
-    private static int nextId = 1;
     private int reservationId;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
@@ -30,7 +29,7 @@ public class Reservation {
             throw new IllegalArgumentException("Check-out date must be after check-in date.");
         if (!room.isAvailable())
             throw new IllegalStateException("Room " + room.getRoomNumber() + " is not available.");
-        this.reservationId=nextId++;
+        this.reservationId=reservationId;
         this.room=room;
         this.guest=guest;
         this.checkInDate=checkInDate;
