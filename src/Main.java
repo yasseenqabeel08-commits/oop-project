@@ -122,7 +122,7 @@ public class Main {
 
         Guest g = DB.findGuestByUsername(user);
 
-        if (g==null) {
+        if (g==null||!g.getPassword().equals(pass)) {
             System.out.println("  [ERROR] Invalid guest username or password.");
             return;
         }
@@ -198,8 +198,8 @@ public class Main {
         String pass = SC.nextLine().trim();
 
         Staff s = DB.findStaffByUsername(user);
-        if (s==null) {
-            System.out.println("  [ERROR] Invalid staff credentials.");
+        if (s==null|| !s.getPassword().equals(pass)) {
+            System.out.println("  [ERROR] Invalid staff user or password.");
             return;
         }
         System.out.println("  Welcome, " + s.getName() + " (" + s.getRole() + ")");
