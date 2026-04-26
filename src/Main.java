@@ -151,13 +151,31 @@ public class Main {
                     }
                     try {
                         System.out.print("  Check-in  (YYYY-MM-DD): ");
-                        LocalDate ci = LocalDate.parse(SC.nextLine().trim());
+                        String ciInput = SC.nextLine().trim();
+
                         System.out.print("  Check-out (YYYY-MM-DD): ");
-                        LocalDate co = LocalDate.parse(SC.nextLine().trim());
+                        String coInput = SC.nextLine().trim();
+
+                        LocalDate ci = LocalDate.parse(ciInput);
+                        LocalDate co = LocalDate.parse(coInput);
+
+                        // ✅ Validation 1: check-out after check-in
+                        if (!co.isAfter(ci)) {
+                            System.out.println("  Check-out must be after check-in.");
+                            break;
+                        }
+
+                        // ✅ Validation 2: prevent past dates
+                        if (ci.isBefore(LocalDate.now())) {
+                            System.out.println("  Check-in cannot be in the past.");
+                            break;
+                        }
+
                         Reservation res = g.makeReservation(room, ci, co);
                         System.out.println("  " + res);
+
                     } catch (Exception e) {
-                        System.out.println("  [ERROR] " + e.getMessage());
+                        System.out.println("  Invalid date format. Please use YYYY-MM-DD.");
                     }
                 }
                 case "3" -> g.viewMyReservations().forEach(r -> System.out.println("    " + r));
