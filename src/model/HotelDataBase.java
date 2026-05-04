@@ -74,7 +74,7 @@ private static ArrayList<Guest> guests = new ArrayList<>();
             rooms.add(new Room(9,"302" ,SUITE,850,3,true,true));
             rooms.add(new Room(10,"400" ,DELUXE,1200,4,true,false));
             rooms.add(new Room(11,"401" ,DELUXE,1100,4,true,false));
-            Room room1=rooms.getFirst();
+            Room room1=rooms.get(0);
             room1.addAmenity(wifi);
             room1.addAmenity(tv);
             Room room2=rooms.get(1);
