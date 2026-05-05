@@ -1,7 +1,47 @@
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml">
-    <children>
-        <Label text="Welcome Guest!" layoutX="100" layoutY="100"/>
-    </children>
-</AnchorPane>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="GuestDashboardController">
+
+    <!-- TOP (COMBINED) -->
+    <top>
+        <VBox>
+            <Label fx:id="welcomeLabel"
+                   text="Welcome"
+                   style="-fx-padding: 10; -fx-font-size: 16;" />
+
+            <Label text="Guest Dashboard"
+                   style="-fx-font-size: 20px; -fx-padding: 5;" />
+        </VBox>
+    </top>
+
+    <!-- LEFT MENU -->
+    <left>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <Button text="View Profile" onAction="#handleProfile"/>
+            <Button text="Browse Rooms" onAction="#handleBrowseRooms"/>
+            <Button text="My Reservations" onAction="#handleMyReservations"/>
+            <Button text="Logout" onAction="#handleLogout"/>
+        </VBox>
+    </left>
+
+    <!-- CENTER -->
+    <center>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <TableView fx:id="roomTable" prefWidth="400" prefHeight="300">
+                <columns>
+                    <TableColumn fx:id="colRoomNumber" text="Room #" prefWidth="120"/>
+                    <TableColumn fx:id="colPrice" text="Price" prefWidth="120"/>
+                </columns>
+            </TableView>
+
+            <TextArea fx:id="displayArea"
+                      prefHeight="120"
+                      editable="false"
+                      promptText="Output will appear here..." />
+        </VBox>
+    </center>
+
+</BorderPane>

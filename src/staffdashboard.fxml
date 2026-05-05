@@ -1,0 +1,33 @@
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+
+            fx:controller="StaffDashboardController">
+<!--    <Label fx:id="welcomeLabel" layoutX="20" layoutY="20"/>-->
+    <Label fx:id="welcomeLabel" style="-fx-padding: 10; -fx-font-size: 16;"/>
+    <!-- TOP -->
+    <top>
+        <Label text="Staff Dashboard"
+               style="-fx-font-size: 20px; -fx-padding: 10;" />
+    </top>
+
+    <!-- LEFT MENU -->
+    <left>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <Button text="View Rooms" onAction="#handleViewRooms"/>
+            <Button text="View Reservations" onAction="#handleViewReservations"/>
+            <Button text="Check-In Guest" onAction="#handleCheckIn"/>
+            <Button text="Check-Out Guest" onAction="#handleCheckOut"/>
+            <Button text="Logout" onAction="#handleLogout"/>
+        </VBox>
+    </left>
+
+    <!-- CENTER CONTENT -->
+    <center>
+        <TextArea fx:id="displayArea" editable="false"
+                  promptText="System output will appear here..."
+                  style="-fx-padding: 10;"/>
+    </center>
+
+</BorderPane>
