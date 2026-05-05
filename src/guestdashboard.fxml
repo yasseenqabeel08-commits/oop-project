@@ -1,0 +1,7 @@
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml">
+    <children>
+        <Label text="Welcome Guest!" layoutX="100" layoutY="100"/>
+    </children>
+</AnchorPane>

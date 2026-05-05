@@ -22,7 +22,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-
+        HotelDataBase.getInstance().populateDummyData();
         launch();
 
         System.out.println("╔═══════════════════════════════════════════╗");
