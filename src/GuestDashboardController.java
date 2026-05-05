@@ -65,25 +65,25 @@ public class GuestDashboardController {
             );
         }
 
-        @FXML
-        private void handleBrowseRooms() {
+    @FXML
+    private void handleBrowseRooms() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("rooms.fxml"));
+            Parent root = loader.load();
 
-                Task<ObservableList<Room>> task = new Task<>() {
-                    @Override
-                    protected ObservableList<Room> call() throws Exception {
-                        Thread.sleep(1000);
-                        return FXCollections.observableArrayList(db.getRooms());
-                    }
-                };
+            // ✅ get controller
+            RoomsController controller = loader.getController();
 
-                task.setOnSucceeded(e -> {
-                    roomTable.setItems(task.getValue());
-                });
+            // ✅ pass guest
+            controller.setGuest(currentGuest);
 
-                Thread thread = new Thread(task);
-                thread.setDaemon(true);
-                thread.start();
-            }
+            Stage stage = (Stage) displayArea.getScene().getWindow();
+            stage.setScene(new Scene(root));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
         @FXML
