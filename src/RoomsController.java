@@ -1,9 +1,9 @@
 
+    import javafx.beans.property.SimpleStringProperty;
+    import javafx.collections.ObservableList;
     import javafx.fxml.FXML;
-    import javafx.scene.control.Label;
-    import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
-import javafx.collections.FXCollections;
+    import javafx.scene.control.*;
+    import javafx.collections.FXCollections;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,11 +21,18 @@ import HotelRooms.*;
 
         @FXML
         private TableColumn<Room, String> colPrice;
+        @FXML
+        private TextField priceField;
 
+        @FXML
+        private TextField typeField;
         private HotelDataBase db = HotelDataBase.getInstance();
+        @FXML
+        private TableColumn<Room, String> colType;
 
         @FXML
         public void initialize() {
+
             colRoomNumber.setCellValueFactory(data ->
                     new javafx.beans.property.SimpleStringProperty(
                             data.getValue().getRoomNumber()
@@ -35,6 +42,12 @@ import HotelRooms.*;
             colPrice.setCellValueFactory(data ->
                     new javafx.beans.property.SimpleStringProperty(
                             String.valueOf(data.getValue().getPricePerNight())
+                    )
+            );
+
+            colType.setCellValueFactory(data ->
+                    new javafx.beans.property.SimpleStringProperty(
+                            data.getValue().getRoomtype().toString()
                     )
             );
 
@@ -59,13 +72,18 @@ import HotelRooms.*;
             Room selected = roomTable.getSelectionModel().getSelectedItem();
 
             if (selected == null) {
-                System.out.println("No room selected");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Please select a room first!");
+                alert.show();
                 return;
             }
 
-            System.out.println("Selected room: " + selected.getRoomNumber());
+            // ✅ TEMP simulation
+            System.out.println("Reserved room: " + selected.getRoomNumber());
 
-            // later: send to reservation system (Person 1)
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Room reserved successfully (simulation)");
+            alert.show();
         }
 
         @FXML
@@ -84,6 +102,55 @@ import HotelRooms.*;
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        @FXML
+        private void handleFilter() {
+
+            ObservableList<Room> filtered = FXCollections.observableArrayList();
+
+            String typeInput = typeField.getText().trim().toUpperCase();
+            String priceText = priceField.getText().trim();
+            boolean matchesType = true;
+            double maxPrice = Double.MAX_VALUE;
+
+            try {
+                if (!priceText.isEmpty()) {
+                    maxPrice = Double.parseDouble(priceText);
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid price");
+                return;
+            }
+
+            for (Room r : db.getRooms()) {
+
+                boolean matchesPrice = r.getPricePerNight() <= maxPrice;
+
+
+                if (!typeInput.isEmpty()) {
+                    try {
+                        matchesType = r.getRoomtype().getTypeName().equalsIgnoreCase(typeInput);
+                    } catch (Exception e) {
+                        System.out.println("Invalid type");
+                        return;
+
+                }
+
+                    if (!typeInput.isEmpty()) {
+                        matchesType = r.getRoomtype()
+                                .getTypeName()
+                                .equalsIgnoreCase(typeInput);
+                    }
+            }
+
+            roomTable.setItems(filtered);
+        }
+
+            roomTable.setItems(filtered);
+        }
+        @FXML
+        private void handleReset() {
+            roomTable.setItems(FXCollections.observableArrayList(db.getRooms()));
         }
     }
 

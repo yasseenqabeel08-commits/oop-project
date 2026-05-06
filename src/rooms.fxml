@@ -14,12 +14,26 @@
 
     <!-- CENTER -->
     <center>
-        <TableView fx:id="roomTable">
-            <columns>
-                <TableColumn fx:id="colRoomNumber" text="Room #" prefWidth="150"/>
-                <TableColumn fx:id="colPrice" text="Price" prefWidth="150"/>
-            </columns>
-        </TableView>
+        <VBox spacing="10" style="-fx-padding: 10;">
+
+            <!-- FILTER -->
+            <HBox spacing="10">
+                <TextField fx:id="priceField" promptText="Max Price"/>
+                <TextField fx:id="typeField" promptText="Room Type"/>
+                <Button text="Filter" onAction="#handleFilter"/>
+                <Button text="Reset" onAction="#handleReset"/>
+            </HBox>
+
+            <!-- TABLE -->
+            <TableView fx:id="roomTable">
+                <columns>
+                    <TableColumn fx:id="colRoomNumber" text="Room #" prefWidth="120"/>
+                    <TableColumn fx:id="colPrice" text="Price" prefWidth="120"/>
+                    <TableColumn fx:id="colType" text="Type" prefWidth="120"/>
+                </columns>
+            </TableView>
+
+        </VBox>
     </center>
 
     <!-- BOTTOM -->

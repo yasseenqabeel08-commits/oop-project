@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20" alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="WelcomeController">
+
+    <padding>
+        <Insets top="40" right="40" bottom="40" left="40"/>
+    </padding>
+
+    <!-- Title -->
+    <Label text="Hotel Reservation System"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+    <!-- Buttons -->
+    <Button text="Login"
+            prefWidth="200"
+            onAction="#handleLogin"/>
+
+    <Button text="Register"
+            prefWidth="200"
+            onAction="#handleRegister"/>
+
+</VBox>
