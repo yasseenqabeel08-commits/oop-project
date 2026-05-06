@@ -1,3 +1,4 @@
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -87,5 +88,9 @@ public class LoginController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    @FXML
+    private void handleBack(ActionEvent event) {
+        SceneManager.switchScene(event, "welcome.fxml");
     }
 }

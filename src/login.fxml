@@ -28,7 +28,7 @@
                 <Button text="Login"
                         onAction="#handleLogin"
                         maxWidth="250"/>
-
+                <Button text="← Back" style="-fx-background-color: lightgray;" onAction="#handleBack"/>
             </children>
 
         </VBox>
