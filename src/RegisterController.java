@@ -1,6 +1,7 @@
-package model;
 import HotelRooms.RoomType;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import model.*;
 import model.enums.Gender;
@@ -12,6 +13,7 @@ public class RegisterController {
     @FXML private PasswordField confirmPasswordField;
     @FXML private DatePicker dobPicker;
     @FXML private ComboBox<String> genderBox;
+    @FXML private Label errorLabel;
     @FXML private TextField addressField;
     @FXML private TextField balanceField;
 
@@ -23,7 +25,7 @@ public class RegisterController {
     }
 
     @FXML
-    private void handleRegister() {
+    private void handleRegister(ActionEvent event) {
 
         String username = usernameField.getText().trim();
         String password = passwordField.getText();
@@ -75,7 +77,7 @@ public class RegisterController {
         RoomType defaultType = db.getRoomTypes().get(0); // SINGLE
         RoomPrefrences preferences = new RoomPrefrences(defaultType, 1, false);
 
-        // ✅ CREATE GUEST (MATCH YOUR CONSTRUCTOR)
+
         Guest guest = new Guest(
                 username,
                 password,
@@ -87,11 +89,13 @@ public class RegisterController {
                 preferences
         );
 
-        // ✅ ADD TO DATABASE
+
         db.getGuests().add(guest);
 
         showAlert("Success", "Registration successful!");
 
+
+        SceneManager.switchScene(event,"login.fxml");
         clearFields();
     }
 
@@ -112,10 +116,10 @@ public class RegisterController {
         dobPicker.setValue(null);
     }
 
+
     @FXML
-    private void goToLogin() {
-        System.out.println("Switch to login screen");
-        // you will implement scene switching later
+    private void handleBack(ActionEvent event) {
+        SceneManager.switchScene(event, "welcome.fxml");
     }
 
 }

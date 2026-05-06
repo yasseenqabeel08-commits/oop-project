@@ -3,7 +3,7 @@
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import model.*;
     public class SceneManager {
 
         public static void switchScene(ActionEvent event, String fxmlFile) {

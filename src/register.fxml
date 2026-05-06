@@ -9,7 +9,7 @@
       stylesheets="@style.css"
       xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="model.RegisterController">
+      fx:controller="RegisterController">
 
    <children>
 
@@ -31,7 +31,7 @@
 
       <HBox spacing="10" alignment="CENTER">
          <Button text="Register" onAction="#handleRegister"/>
-         <Button text="Back" onAction="#goToLogin"/>
+         <Button text="Back" onAction="#handleBack"/>
       </HBox>
 
    </children>
