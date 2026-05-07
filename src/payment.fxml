@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15.0" alignment="TOP_CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="PaymentController">
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <Label text="Payment &amp; Checkout" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+    <Separator/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Amount Due:" style="-fx-font-size: 16px;"/>
+        <Label fx:id="totalAmountLabel" text="0.00 EGP" style="-fx-font-size: 18px; -fx-text-fill: #2ecc71; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <VBox spacing="8" style="-fx-border-color: #ccc; -fx-padding: 15; -fx-border-radius: 5;">
+        <Label text="Choose Payment Method:" style="-fx-font-weight: bold;"/>
+        <RadioButton text="Credit/Debit Card">
+            <toggleGroup><ToggleGroup fx:id="paymentMethod"/></toggleGroup>
+        </RadioButton>
+        <RadioButton text="Cash at Desk" toggleGroup="$paymentMethod"/>
+        <RadioButton text="Vodafone Cash / Digital Wallet" toggleGroup="$paymentMethod"/>
+    </VBox>
+
+    <Button fx:id="confirmButton" text="Confirm &amp; Pay" onAction="#handleCheckout"
+            style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-padding: 10 30;"/>
+
+    <Label text="Generated Invoice:"/>
+    <TextArea fx:id="invoiceDisplay" editable="false" prefHeight="200"
+              style="-fx-font-family: 'Courier New'; -fx-font-size: 12px;" wrapText="true"/>
+</VBox>
