@@ -1,29 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<VBox spacing="15.0" alignment="TOP_CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="paymentcontroller">
+<VBox spacing="15.0"
+      alignment="TOP_CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="PaymentController">
+
     <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
+        <Insets top="20"
+                right="20"
+                bottom="20"
+                left="20"/>
     </padding>
 
-    <Label text="Checkout" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <Label text="Checkout"
+           style="-fx-font-size: 20px;
+                  -fx-font-weight: bold;"/>
 
-    <HBox spacing="10" alignment="CENTER">
+    <HBox spacing="10"
+          alignment="CENTER">
+
         <Label text="Total Amount:"/>
-        <Label fx:id="totalAmountLabel" text="0.00 EGP" style="-fx-font-weight: bold; -fx-text-fill: green;"/>
+
+        <Label fx:id="totalAmountLabel"
+               text="0.00 EGP"
+               style="-fx-font-weight: bold;
+                      -fx-text-fill: green;"/>
     </HBox>
 
-    <VBox spacing="10" style="-fx-border-color: lightgray; -fx-padding: 10;">
+    <!-- PAYMENT METHODS -->
+    <VBox spacing="10"
+          style="-fx-border-color: lightgray;
+                 -fx-padding: 10;">
+
         <Label text="Payment Method:"/>
-        <RadioButton text="Credit/Debit Card">
-            <toggleGroup><ToggleGroup fx:id="paymentMethod"/></toggleGroup>
+
+        <RadioButton text="Cash">
+            <toggleGroup>
+                <ToggleGroup fx:id="paymentMethod"/>
+            </toggleGroup>
         </RadioButton>
-        <RadioButton text="Cash at Desk" toggleGroup="$paymentMethod"/>
+
+        <RadioButton text="Visa"
+                     toggleGroup="$paymentMethod"/>
+
+        <!-- VISA NUMBER FIELD -->
+        <TextField fx:id="visaField"
+                   promptText="Enter 16-digit Visa number"/>
+
+        <RadioButton text="Balance"
+                     toggleGroup="$paymentMethod"/>
+
     </VBox>
 
-    <Button text="Confirm Payment" onAction="#handleCheckout" style="-fx-background-color: #2ecc71; -fx-text-fill: white;"/>
+    <!-- CONFIRM BUTTON -->
+    <Button fx:id="confirmButton"
+            text="Confirm Payment"
+            onAction="#handleCheckout"
+            style="-fx-background-color: #2ecc71;
+                   -fx-text-fill: white;
+                   -fx-font-weight: bold;"/>
 
-    <TextArea fx:id="invoiceDisplay" editable="false" prefHeight="150" style="-fx-font-family: 'Courier New';"/>
+    <!-- INVOICE -->
+    <TextArea fx:id="invoiceDisplay"
+              editable="false"
+              prefHeight="250"
+              prefWidth="450"
+              wrapText="true"
+              style="-fx-font-family: 'Courier New';"/>
+
+    <!-- BACK BUTTON -->
+    <Button text="Back To Dashboard"
+            onAction="#handleBackToDashboard"
+            style="-fx-background-color: #3498db;
+                   -fx-text-fill: white;
+                   -fx-font-weight: bold;"/>
+
 </VBox>

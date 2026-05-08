@@ -270,27 +270,25 @@ public class RoomsController {
             // SET TOTAL COST
             reservation.setTotalCost(cost);
 
-            // CREATE INVOICE
-            Invoice invoice = new Invoice();
-
-            // SET PAYMENT STATUS = PAID
-            invoice.setIsPaid(true);
-
-            // ATTACH INVOICE TO RESERVATION
-            reservation.setInvoice(invoice);
-
-            // DEDUCT BALANCE
-            currentGuest.setBalance(
-                    currentGuest.getBalance() - cost
-            );
-
             // ADD RESERVATION
             db.addReservation(reservation);
 
-            showAlert(
-                    "Success",
-                    "Reservation created successfully!"
+            // OPEN PAYMENT PAGE
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("payment.fxml")
             );
+
+            Parent root = loader.load();
+
+            PaymentController controller =
+                    loader.getController();
+
+            controller.setPaymentData(reservation, cost);
+
+            Stage stage =
+                    (Stage) roomTable.getScene().getWindow();
+
+            stage.setScene(new Scene(root));
 
         } catch (Exception e) {
 
