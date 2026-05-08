@@ -27,7 +27,7 @@
     <!-- 🔹 RESERVATION PANE -->
     <VBox fx:id="reservationPane" layoutX="200" layoutY="50" spacing="10" visible="false">
 
-        <Label text="My Reservations"/>
+        <Label text="Active Reservations"/>
 
         <!-- ✅ TABLE USED FOR DISPLAY -->
         <TableView fx:id="bookingTable" prefWidth="600" prefHeight="200">
@@ -35,14 +35,17 @@
                 <TableColumn fx:id="colRoom" text="Room"/>
                 <TableColumn fx:id="colCheckIn" text="Check In"/>
                 <TableColumn fx:id="colCheckOut" text="Check Out"/>
+                <TableColumn fx:id="colReservationStatus" text="Status"/>
                 <TableColumn fx:id="colStatus" text="Payment Status"/>
             </columns>
         </TableView>
 
-        <!-- ✅ TABLE USED FOR SELECTION (cancel) -->
-        <TableView fx:id="reservationTable" prefWidth="600" prefHeight="200"/>
-
+<!--        &lt;!&ndash; ✅ TABLE USED FOR SELECTION (cancel) &ndash;&gt;-->
+<!--        <TableView fx:id="reservationTable" prefWidth="600" prefHeight="200"/>-->
+        <Button text="View History" onAction="#handleViewHistory"/>
+        <Button text="View Active" onAction="#handleViewActive"/>
         <Button text="Cancel Reservation" onAction="#handleCancelReservation"/>
+
     </VBox>
 
     <!-- 🔹 SIDE BUTTONS -->

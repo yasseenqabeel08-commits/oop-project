@@ -11,6 +11,8 @@ import HotelRooms.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.beans.property.SimpleStringProperty;
+import model.enums.ReservationStatus;
+
 public class GuestDashboardController {
 
         @FXML
@@ -31,6 +33,7 @@ public class GuestDashboardController {
     @FXML private TableColumn<Reservation, String> colStatus;
     @FXML private TableColumn<Reservation, String> colCheckIn;
     @FXML private TableColumn<Reservation, String> colCheckOut;
+    @FXML private TableColumn<Reservation, String> colReservationStatus;
     @FXML private VBox profilePane;
     @FXML private VBox roomsPane;
     @FXML private VBox reservationPane;
@@ -40,7 +43,7 @@ public class GuestDashboardController {
     @FXML private Label nameLabel;
     @FXML private Label balanceInfoLabel;
     @FXML private Label addressLabel;
-    @FXML private TableView<Reservation> reservationTable;
+//    @FXML private TableView<Reservation> reservationTable;
     @FXML
     public void initialize() {
         if (currentGuest != null) {
@@ -82,6 +85,9 @@ public class GuestDashboardController {
                 return new javafx.beans.property.SimpleStringProperty("Unpaid");
             }
         });
+        colReservationStatus.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().getStatus().toString())
+        );
     }
 
     public void setGuest(Guest guest) {
@@ -172,7 +178,10 @@ public class GuestDashboardController {
         ObservableList<Reservation> list = FXCollections.observableArrayList();
 
         for (Reservation r : db.getReservations()) {
-            if (r.getGuest().equals(currentGuest)) {
+            if (r.getGuest().equals(currentGuest)
+                    && (r.getStatus() == ReservationStatus.CONFIRMED
+                    || r.getStatus() == ReservationStatus.PENDING)) {
+
                 list.add(r);
             }
         }
@@ -220,6 +229,27 @@ public class GuestDashboardController {
         }
 
 
+
+    }
+    @FXML
+    private void handleViewHistory() {
+
+        ObservableList<Reservation> historyList = FXCollections.observableArrayList();
+
+        for (Reservation r : db.getReservations()) {
+            if (r.getGuest().equals(currentGuest)
+                    && (r.getStatus() == ReservationStatus.COMPLETED
+                    || r.getStatus() == ReservationStatus.CANCELLED)) {
+
+                historyList.add(r);
+            }
+        }
+
+        bookingTable.setItems(historyList);
+    }
+    @FXML
+    private void handleViewActive() {
+        loadBookings(); // THIS brings back active reservations
     }
 
     }
