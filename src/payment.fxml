@@ -22,7 +22,7 @@
             <toggleGroup><ToggleGroup fx:id="paymentMethod"/></toggleGroup>
         </RadioButton>
         <RadioButton text="Cash at Desk" toggleGroup="$paymentMethod"/>
-        <RadioButton text="Vodafone Cash / Digital Wallet" toggleGroup="$paymentMethod"/>
+
     </VBox>
 
     <Button fx:id="confirmButton" text="Confirm &amp; Pay" onAction="#handleCheckout"
