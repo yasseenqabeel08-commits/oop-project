@@ -10,6 +10,9 @@ public class Invoice {
     private PaymentMethod paymentMethod;
     private Reservation reservation;
 
+    public Invoice()
+    {}
+
     public Invoice(int Id, Reservation reservation, PaymentMethod paymentMethod) {
         if (reservation == null)
             throw new IllegalArgumentException("Invoice must be linked to a reservation.");

@@ -1,7 +1,6 @@
 import HotelRooms.RoomType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import model.*;
 import model.enums.Gender;
@@ -41,49 +40,49 @@ public class RegisterController {
                 || address.isEmpty() || genderValue == null
                 || dobPicker.getValue() == null || balanceField.getText().isEmpty()) {
 
-            showAlert("Error", "All fields must be filled!");
+            showAlert(Alert.AlertType.ERROR, "Error", "All fields must be filled!");
             return;
         }
 
-        // Check age (must be 18 or older)
+        // Check age
         int age = Period.between(dobPicker.getValue(), LocalDate.now()).getYears();
 
         if (age < 18) {
-            showAlert("Error", "You must be at least 18 years old to register!");
+            showAlert(Alert.AlertType.ERROR, "Error", "You must be at least 18 years old to register!");
             return;
         }
 
         // Check passwords match
         if (!password.equals(confirmPassword)) {
-            showAlert("Error", "Passwords do not match!");
+            showAlert(Alert.AlertType.ERROR, "Error", "Passwords do not match!");
             return;
         }
 
         // Check password length
-        if (password.length() < 6) {
-            showAlert("Error", "Password must be at least 6 characters!");
+        if (password.length() < 8) {
+            showAlert(Alert.AlertType.ERROR, "Error", "Password must be at least 8 characters!");
             return;
         }
 
-        // Check balance
+        // Validate balance
         double balance;
 
         try {
             balance = Double.parseDouble(balanceField.getText());
 
             if (balance < 0) {
-                showAlert("Error", "Balance cannot be negative!");
+                showAlert(Alert.AlertType.ERROR, "Error", "Balance cannot be negative!");
                 return;
             }
 
         } catch (NumberFormatException e) {
-            showAlert("Error", "Balance must be a number!");
+            showAlert(Alert.AlertType.ERROR, "Error", "Balance must be a number!");
             return;
         }
 
         // Check duplicate username
         if (db.findGuestByUsername(username) != null) {
-            showAlert("Error", "Username already exists!");
+            showAlert(Alert.AlertType.ERROR, "Error", "Username already exists!");
             return;
         }
 
@@ -111,7 +110,7 @@ public class RegisterController {
         // Add guest to database
         db.getGuests().add(guest);
 
-        showAlert("Success", "Registration successful!");
+        showAlert(Alert.AlertType.INFORMATION, "Success", "Registration successful!");
 
         // Switch to login screen
         SceneManager.switchScene(event, "login.fxml");
@@ -119,9 +118,9 @@ public class RegisterController {
         clearFields();
     }
 
-    private void showAlert(String title, String message) {
+    private void showAlert(Alert.AlertType type, String title, String message) {
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Alert alert = new Alert(type);
 
         alert.setTitle(title);
         alert.setHeaderText(null);
