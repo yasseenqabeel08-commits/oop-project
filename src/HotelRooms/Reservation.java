@@ -18,7 +18,7 @@ public class Reservation {
     private Room room;
     private Guest guest;
     private final long nights;
-
+    private Invoice invoice;
     public Reservation(int reservationId,Room room,Guest guest,LocalDate checkInDate,LocalDate checkOutDate){
         if (guest == null)         throw new IllegalArgumentException("Guest cannot be null.");
         if (room  == null)         throw new IllegalArgumentException("Room cannot be null.");
@@ -151,7 +151,13 @@ public Room getRoom() {
             }
 
     }
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
+    }
 
+    public Invoice getInvoice() {
+        return invoice;
+    }
     public String toString() {
         return String.format(
                 "[Reservation #%d] %-15s | Room %s | %s → %s | %d nights | EGP %.2f | %s",

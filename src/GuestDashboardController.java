@@ -28,6 +28,7 @@ public class GuestDashboardController {
 //
     @FXML private TableView<Reservation> bookingTable;
     @FXML private TableColumn<Reservation, String> colRoom;
+    @FXML private TableColumn<Reservation, String> colStatus;
     @FXML private TableColumn<Reservation, String> colCheckIn;
     @FXML private TableColumn<Reservation, String> colCheckOut;
     @FXML private VBox profilePane;
@@ -72,6 +73,15 @@ public class GuestDashboardController {
                         data.getValue().getCheckOutDate().toString()
                 )
         );
+        colStatus.setCellValueFactory(data -> {
+            Reservation r = data.getValue();
+
+            if (r.getInvoice() != null && r.getInvoice().isIsPaid()) {
+                return new javafx.beans.property.SimpleStringProperty("Paid");
+            } else {
+                return new javafx.beans.property.SimpleStringProperty("Unpaid");
+            }
+        });
     }
 
     public void setGuest(Guest guest) {
@@ -205,7 +215,11 @@ public class GuestDashboardController {
             success.setHeaderText(null);
             success.setContentText("Reservation cancelled successfully!");
             success.showAndWait();
+
+
         }
+
+
     }
 
     }

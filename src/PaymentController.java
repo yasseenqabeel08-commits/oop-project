@@ -1,3 +1,5 @@
+import HotelRooms.Invoice;
+import HotelRooms.Reservation;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import java.time.LocalDateTime;
@@ -8,44 +10,81 @@ public class PaymentController {
     @FXML private Label totalAmountLabel;
     @FXML private ToggleGroup paymentMethod;
     @FXML private TextArea invoiceDisplay;
+    @FXML private Button confirmButton;
+    private Reservation reservation;
 
-    // This is called when Person 1/3 sends the price to this screen
-    public void setPaymentData(double price) {
+    private double finalPrice = 0.0;
+
+    /**
+     * This method allows Person 1 or 3 to "send" the total price
+     * to your screen during navigation.
+     */
+    public void setPaymentData(Reservation reservation, double price) {
+        this.reservation = reservation;
+        this.finalPrice = price;
         totalAmountLabel.setText(String.format("%.2f EGP", price));
     }
-
+    public void setReservation(Reservation reservation, double price) {
+        this.reservation = reservation;
+        this.finalPrice = price;
+        totalAmountLabel.setText(String.format("%.2f EGP", price));
+    }
     @FXML
     private void handleCheckout() {
         RadioButton selectedMethod = (RadioButton) paymentMethod.getSelectedToggle();
 
+        // Check if user actually picked a method
         if (selectedMethod == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("Please select a payment method!");
-            alert.show();
+            showAlert("Selection Required", "Please select a payment method.", Alert.AlertType.WARNING);
             return;
         }
 
-        String method = selectedMethod.getText();
+        // Feature: Payment confirmation logic
+        boolean success = simulateTransaction();
 
-        // Show Success Message
-        Alert success = new Alert(Alert.AlertType.INFORMATION);
-        success.setTitle("Payment Successful");
-        success.setContentText("Paid via " + method);
-        success.showAndWait();
+        if (success) {
+            showAlert("Success", "Payment of " + totalAmountLabel.getText() + " confirmed!", Alert.AlertType.INFORMATION);
 
-        // Generate Invoice
-        generateInvoice(method);
+            // ✅ CREATE INVOICE
+            Invoice invoice = new Invoice(finalPrice, true);
+
+            // ✅ LINK TO RESERVATION
+            if (reservation != null) {
+                reservation.setInvoice(invoice);
+            }
+
+            generateInvoice(selectedMethod.getText());
+            confirmButton.setDisable(true);
+        }
     }
 
     private void generateInvoice(String method) {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        invoiceDisplay.setText(
-                "========== HOTEL INVOICE ==========\n" +
-                        "Date: " + dtf.format(LocalDateTime.now()) + "\n" +
-                        "Total: " + totalAmountLabel.getText() + "\n" +
-                        "Method: " + method + "\n" +
-                        "Status: COMPLETED\n" +
-                        "==================================="
-        );
+        String now = dtf.format(LocalDateTime.now());
+
+        String sb = "========== HOTEL INVOICE ==========\n" +
+                "Date: " + now + "\n" +
+                "Ref No: " + (int) (Math.random() * 100000) + "\n" +
+                "-----------------------------------\n" +
+                "Total Amount: " + totalAmountLabel.getText() + "\n" +
+                "Payment Method: " + method + "\n" +
+                "Status: COMPLETED\n" +
+                "-----------------------------------\n" +
+                "Thank you for choosing our Hotel!";
+
+        invoiceDisplay.setText(sb);
+    }
+
+    private void showAlert(String title, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private boolean simulateTransaction() {
+        // Logic for success/failure
+        return true;
     }
 }

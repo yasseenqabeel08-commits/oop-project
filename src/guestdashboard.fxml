@@ -35,6 +35,7 @@
                 <TableColumn fx:id="colRoom" text="Room"/>
                 <TableColumn fx:id="colCheckIn" text="Check In"/>
                 <TableColumn fx:id="colCheckOut" text="Check Out"/>
+                <TableColumn fx:id="colStatus" text="Payment Status"/>
             </columns>
         </TableView>
 

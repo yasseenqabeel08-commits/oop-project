@@ -25,7 +25,10 @@ public class Invoice {
     public Invoice(Reservation reservation) {
         this.reservation = reservation;
     }
-
+    public Invoice(double amount, boolean paid) {
+        this.totalAmount = amount;
+        this.isPaid = paid;
+    }
     public void setInvoiceId(int invoiceId) {
         this.invoiceId = invoiceId;
     }
