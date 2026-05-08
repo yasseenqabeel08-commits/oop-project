@@ -32,7 +32,18 @@
                 <Label text="Check-out:"/>
                 <DatePicker fx:id="checkOutPicker"/>
             </HBox>
+            <VBox spacing="10">
+                <Label text="Filter by Amenities"/>
 
+                <HBox spacing="10">
+                    <CheckBox fx:id="wifiCheck" text="WiFi"/>
+                    <CheckBox fx:id="tvCheck" text="TV"/>
+                    <CheckBox fx:id="minibarCheck" text="Mini-bar"/>
+                    <CheckBox fx:id="poolCheck" text="Pool"/>
+                    <CheckBox fx:id="gymCheck" text="Gym"/>
+                    <CheckBox fx:id="jacuzziCheck" text="Jacuzzi"/>
+                </HBox>
+            </VBox>
             <!-- TABLE -->
             <TableView fx:id="roomTable">
                 <columns>

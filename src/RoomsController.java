@@ -12,6 +12,7 @@ import model.*;
 import HotelRooms.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class RoomsController {
 
@@ -43,7 +44,12 @@ public class RoomsController {
     private Label welcomeLabel;
 
     private Guest currentGuest;
-
+    @FXML private CheckBox wifiCheck;
+    @FXML private CheckBox tvCheck;
+    @FXML private CheckBox minibarCheck;
+    @FXML private CheckBox poolCheck;
+    @FXML private CheckBox gymCheck;
+    @FXML private CheckBox jacuzziCheck;
     private HotelDataBase db = HotelDataBase.getInstance();
 
     @FXML
@@ -70,6 +76,14 @@ public class RoomsController {
         roomTable.setItems(
                 FXCollections.observableArrayList(db.getRooms())
         );
+        loadRooms(); // initial load
+
+        wifiCheck.setOnAction(e -> loadRooms());
+        tvCheck.setOnAction(e -> loadRooms());
+        minibarCheck.setOnAction(e -> loadRooms());
+        poolCheck.setOnAction(e -> loadRooms());
+        gymCheck.setOnAction(e -> loadRooms());
+        jacuzziCheck.setOnAction(e -> loadRooms());
     }
 
     public void setGuest(Guest guest) {
@@ -293,5 +307,45 @@ public class RoomsController {
         roomTable.setItems(
                 FXCollections.observableArrayList(db.getRooms())
         );
+    }
+    private void loadRooms() {
+
+        List<Room> allRooms = HotelDataBase.getInstance().getRooms();
+
+        // 🔥 GET AMENITIES FROM DATABASE
+        List<Amenity> allAmenities = HotelDataBase.getInstance().getAmenities();
+
+        Amenity wifi = allAmenities.stream().filter(a -> a.getName().equals("WiFi")).findFirst().orElse(null);
+        Amenity tv = allAmenities.stream().filter(a -> a.getName().equals("TV")).findFirst().orElse(null);
+        Amenity minibar = allAmenities.stream().filter(a -> a.getName().equals("Mini-bar")).findFirst().orElse(null);
+        Amenity pool = allAmenities.stream().filter(a -> a.getName().equals("Pool")).findFirst().orElse(null);
+        Amenity gym = allAmenities.stream().filter(a -> a.getName().equals("Gym")).findFirst().orElse(null);
+        Amenity jacuzzi = allAmenities.stream().filter(a -> a.getName().equals("Jacuzzi")).findFirst().orElse(null);
+
+        List<Room> filtered = allRooms.stream().filter(room -> {
+
+            if (wifiCheck.isSelected() && !room.getAmenities().contains(wifi))
+                return false;
+
+            if (tvCheck.isSelected() && !room.getAmenities().contains(tv))
+                return false;
+
+            if (minibarCheck.isSelected() && !room.getAmenities().contains(minibar))
+                return false;
+
+            if (poolCheck.isSelected() && !room.getAmenities().contains(pool))
+                return false;
+
+            if (gymCheck.isSelected() && !room.getAmenities().contains(gym))
+                return false;
+
+            if (jacuzziCheck.isSelected() && !room.getAmenities().contains(jacuzzi))
+                return false;
+
+            return true;
+
+        }).toList();
+
+        roomTable.getItems().setAll(filtered);
     }
 }
