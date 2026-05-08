@@ -221,7 +221,12 @@ public class HotelDataBase {
                 .filter(g -> g.getUsername().equalsIgnoreCase(username))
                 .findFirst().orElse(null);
     }
-
+    public void addReservation(Reservation reservation) {
+        if (reservation == null) {
+            throw new IllegalArgumentException("Reservation cannot be null");
+        }
+        reservations.add(reservation);
+    }
     /**
      * Find a staff member by username (case-insensitive), or null if not found.
      */

@@ -12,4 +12,11 @@
         <Label text="Welcome to Dashboard 🎉"
                layoutX="120" layoutY="130"/>
     </children>
+    <VBox spacing="10" style="-fx-padding: 10;">
+
+        <Label text="My Reservations" style="-fx-font-size: 16px;"/>
+
+
+
+    </VBox>
 </AnchorPane>

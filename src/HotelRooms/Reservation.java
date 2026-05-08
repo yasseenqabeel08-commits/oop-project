@@ -1,6 +1,5 @@
 package HotelRooms;
 import model.Guest;
-import model.HotelDataBase;
 import model.enums.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -27,8 +26,8 @@ public class Reservation {
         if (checkOutDate == null)  throw new IllegalArgumentException("Check-out date cannot be null.");
         if (!checkOutDate.isAfter(checkInDate))
             throw new IllegalArgumentException("Check-out date must be after check-in date.");
-        if (!room.isAvailable())
-            throw new IllegalStateException("Room " + room.getRoomNumber() + " is not available.");
+//        if (!room.isAvailable())
+//            throw new IllegalStateException("Room " + room.getRoomNumber() + " is not available.");
         this.reservationId=reservationId;
         this.room=room;
         this.guest=guest;
@@ -42,6 +41,7 @@ public class Reservation {
         room.setAvailable(false);
 
     }
+
 public void setRoom(Room room){
         this.room=room;
 }

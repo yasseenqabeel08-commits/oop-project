@@ -1,47 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="GuestDashboardController">
+<AnchorPane fx:controller="GuestDashboardController"
+            xmlns:fx="http://javafx.com/fxml"
+            prefWidth="800" prefHeight="600">
 
-    <!-- TOP (COMBINED) -->
-    <top>
-        <VBox>
-            <Label fx:id="welcomeLabel"
-                   text="Welcome"
-                   style="-fx-padding: 10; -fx-font-size: 16;" />
+    <!-- 🔹 REQUIRED (used for navigation) -->
+    <Label fx:id="welcomeLabel" layoutX="200" layoutY="10" text="Welcome Guest!" />
 
-            <Label text="Guest Dashboard"
-                   style="-fx-font-size: 20px; -fx-padding: 5;" />
-        </VBox>
-    </top>
+    <!-- 🔹 PROFILE PANE -->
+    <VBox fx:id="profilePane" layoutX="200" layoutY="50" spacing="10" visible="false">
+        <Label text="Profile Information"/>
+        <Label fx:id="nameLabel" text="Name:"/>
+        <Label fx:id="balanceInfoLabel" text="Balance:"/>
+        <Label fx:id="addressLabel" text="Address:"/>
+    </VBox>
 
-    <!-- LEFT MENU -->
-    <left>
-        <VBox spacing="10" style="-fx-padding: 10;">
-            <Button text="View Profile" onAction="#handleProfile"/>
-            <Button text="Browse Rooms" onAction="#handleBrowseRooms"/>
-            <Button text="My Reservations" onAction="#handleMyReservations"/>
-            <Button text="Logout" onAction="#handleLogout"/>
-        </VBox>
-    </left>
+    <!-- 🔹 ROOMS PANE -->
+    <VBox fx:id="roomsPane" layoutX="200" layoutY="50" spacing="10" visible="false">
+        <Label text="Browse Rooms"/>
+    </VBox>
 
-    <!-- CENTER -->
-    <center>
-        <VBox spacing="10" style="-fx-padding: 10;">
-            <TableView fx:id="roomTable" prefWidth="400" prefHeight="300">
-                <columns>
-                    <TableColumn fx:id="colRoomNumber" text="Room #" prefWidth="120"/>
-                    <TableColumn fx:id="colPrice" text="Price" prefWidth="120"/>
-                </columns>
-            </TableView>
+    <!-- 🔹 RESERVATION PANE -->
+    <VBox fx:id="reservationPane" layoutX="200" layoutY="50" spacing="10" visible="false">
 
-            <TextArea fx:id="displayArea"
-                      prefHeight="120"
-                      editable="false"
-                      promptText="Output will appear here..." />
-        </VBox>
-    </center>
+        <Label text="My Reservations"/>
 
-</BorderPane>
+        <!-- ✅ TABLE USED FOR DISPLAY -->
+        <TableView fx:id="bookingTable" prefWidth="600" prefHeight="200">
+            <columns>
+                <TableColumn fx:id="colRoom" text="Room"/>
+                <TableColumn fx:id="colCheckIn" text="Check In"/>
+                <TableColumn fx:id="colCheckOut" text="Check Out"/>
+            </columns>
+        </TableView>
+
+        <!-- ✅ TABLE USED FOR SELECTION (cancel) -->
+        <TableView fx:id="reservationTable" prefWidth="600" prefHeight="200"/>
+
+        <Button text="Cancel Reservation" onAction="#handleCancelReservation"/>
+    </VBox>
+
+    <!-- 🔹 SIDE BUTTONS -->
+    <VBox layoutX="20" layoutY="50" spacing="15">
+        <Button text="Profile" onAction="#handleProfile"/>
+        <Button text="Browse Rooms" onAction="#handleBrowseRooms"/>
+        <Button text="My Reservations" onAction="#handleMyReservations"/>
+        <Button text="Logout" onAction="#handleLogout"/>
+    </VBox>
+
+</AnchorPane>

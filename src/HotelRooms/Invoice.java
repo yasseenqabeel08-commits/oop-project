@@ -22,6 +22,9 @@ public class Invoice {
         this.totalAmount = reservation.getRoom().getPricePerNight();
     }
 
+    public Invoice(Reservation reservation) {
+        this.reservation = reservation;
+    }
 
     public void setInvoiceId(int invoiceId) {
         this.invoiceId = invoiceId;
