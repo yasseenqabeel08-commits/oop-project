@@ -27,7 +27,7 @@
     <!-- 🔹 RESERVATION PANE -->
     <VBox fx:id="reservationPane" layoutX="200" layoutY="50" spacing="10" visible="false">
 
-        <Label text="Active Reservations"/>
+
 
         <!-- ✅ TABLE USED FOR DISPLAY -->
         <TableView fx:id="bookingTable" prefWidth="600" prefHeight="200">
