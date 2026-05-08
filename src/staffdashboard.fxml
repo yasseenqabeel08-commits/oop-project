@@ -25,9 +25,14 @@
 
     <!-- CENTER CONTENT -->
     <center>
-        <TextArea fx:id="displayArea" editable="false"
-                  promptText="System output will appear here..."
-                  style="-fx-padding: 10;"/>
+        <TableView fx:id="mainTable">
+            <columns>
+                <TableColumn fx:id="col1" text="Column 1"/>
+                <TableColumn fx:id="col2" text="Column 2"/>
+                <TableColumn fx:id="col3" text="Column 3"/>
+                <TableColumn fx:id="col4" text="Column 4"/>
+            </columns>
+        </TableView>
     </center>
 
 </BorderPane>
