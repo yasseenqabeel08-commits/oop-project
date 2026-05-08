@@ -24,6 +24,15 @@
                 <Button text="Reset" onAction="#handleReset"/>
             </HBox>
 
+            <!-- DATE PICKERS -->
+            <HBox spacing="10">
+                <Label text="Check-in:"/>
+                <DatePicker fx:id="checkInPicker"/>
+
+                <Label text="Check-out:"/>
+                <DatePicker fx:id="checkOutPicker"/>
+            </HBox>
+
             <!-- TABLE -->
             <TableView fx:id="roomTable">
                 <columns>

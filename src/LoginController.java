@@ -42,7 +42,7 @@ public class LoginController {
 
                 Stage stage = (Stage) usernameField.getScene().getWindow();
 
-                // ✅ GUEST LOGIN
+                // GUEST LOGIN
                 if (user instanceof Guest) {
                     FXMLLoader loader = new FXMLLoader(
                             getClass().getResource("/guestdashboard.fxml")
@@ -60,7 +60,7 @@ public class LoginController {
                     stage.setScene(scene);
                 }
 
-                // ✅ STAFF LOGIN
+                // STAFF LOGIN
                 else if (user instanceof Staff) {
                     FXMLLoader loader = new FXMLLoader(
                             getClass().getResource("/staffdashboard.fxml")

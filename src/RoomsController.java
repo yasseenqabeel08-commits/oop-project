@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import model.*;
 import HotelRooms.*;
 
+    import java.time.LocalDate;
+
     public class RoomsController {
 
         @FXML
@@ -26,9 +28,12 @@ import HotelRooms.*;
 
         @FXML
         private TextField typeField;
+
         private HotelDataBase db = HotelDataBase.getInstance();
         @FXML
         private TableColumn<Room, String> colType;
+        @FXML private DatePicker checkInPicker;
+        @FXML private DatePicker checkOutPicker;
 
         @FXML
         public void initialize() {
@@ -47,9 +52,10 @@ import HotelRooms.*;
 
             colType.setCellValueFactory(data ->
                     new javafx.beans.property.SimpleStringProperty(
-                            data.getValue().getRoomtype().toString()
+                            data.getValue().getRoomtype().getTypeName()
                     )
             );
+
 
             roomTable.setItems(FXCollections.observableArrayList(db.getRooms()));
         }
@@ -67,24 +73,6 @@ import HotelRooms.*;
             }
         }
 
-        @FXML
-        private void handleReserve() {
-            Room selected = roomTable.getSelectionModel().getSelectedItem();
-
-            if (selected == null) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setContentText("Please select a room first!");
-                alert.show();
-                return;
-            }
-
-            // ✅ TEMP simulation
-            System.out.println("Reserved room: " + selected.getRoomNumber());
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Room reserved successfully (simulation)");
-            alert.show();
-        }
 
         @FXML
         private void handleBack() {
@@ -108,11 +96,12 @@ import HotelRooms.*;
 
             ObservableList<Room> filtered = FXCollections.observableArrayList();
 
-            String typeInput = typeField.getText().trim().toUpperCase();
+            String typeInput = typeField.getText().trim().toLowerCase();
             String priceText = priceField.getText().trim();
-            boolean matchesType = true;
+
             double maxPrice = Double.MAX_VALUE;
 
+            //  parse price safely
             try {
                 if (!priceText.isEmpty()) {
                     maxPrice = Double.parseDouble(priceText);
@@ -126,30 +115,117 @@ import HotelRooms.*;
 
                 boolean matchesPrice = r.getPricePerNight() <= maxPrice;
 
+                boolean matchesType = true; // default = accept all
 
                 if (!typeInput.isEmpty()) {
-                    try {
-                        matchesType = r.getRoomtype().getTypeName().equalsIgnoreCase(typeInput);
-                    } catch (Exception e) {
-                        System.out.println("Invalid type");
-                        return;
-
+                    matchesType = r.getRoomtype()
+                            .getTypeName()
+                            .toLowerCase()
+                            .contains(typeInput); // 🔥 better than equals
                 }
 
-                    if (!typeInput.isEmpty()) {
-                        matchesType = r.getRoomtype()
-                                .getTypeName()
-                                .equalsIgnoreCase(typeInput);
-                    }
+                //  IMPORTANT LINE
+                if (matchesPrice && matchesType) {
+                    filtered.add(r);
+                }
             }
 
             roomTable.setItems(filtered);
         }
+        private void showAlert(String title, String msg) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(title);
+            alert.setContentText(msg);
+            alert.showAndWait();
+        }
+        @FXML
+        private void handleReserve() {
 
-            roomTable.setItems(filtered);
+            // 1. Get selected room
+            Room selectedRoom = roomTable.getSelectionModel().getSelectedItem();
+
+            if (selectedRoom == null) {
+                showAlert("Error", "Please select a room!");
+                return;
+            }
+
+            // 2. Get dates from DatePickers
+            LocalDate checkInDate = checkInPicker.getValue();
+            LocalDate checkOutDate = checkOutPicker.getValue();
+
+            // 3. Validate null
+            if (checkInDate == null || checkOutDate == null) {
+                showAlert("Error", "Please select both dates!");
+                return;
+            }
+
+            // 4. Validate logic
+            if (!checkOutDate.isAfter(checkInDate)) {
+                showAlert("Error", "Check-out must be after check-in!");
+                return;
+            }
+
+            if (currentGuest == null) {
+                showAlert("Error", "No user logged in!");
+                return;
+            }
+
+            // ✅ NEW: DOUBLE BOOKING CHECK
+            for (Reservation r : db.getReservations()) {
+                if (r.getRoom().equals(selectedRoom)) {
+
+                    if (!(checkOutDate.isBefore(r.getCheckInDate()) ||
+                            checkInDate.isAfter(r.getCheckOutDate()))) {
+
+                        showAlert("Error", "Room already booked for these dates!");
+                        return;
+                    }
+                }
+            }
+
+            // ✅ NEW: CALCULATE COST
+            long days = java.time.temporal.ChronoUnit.DAYS.between(checkInDate, checkOutDate);
+            double cost = days * selectedRoom.getPricePerNight();
+
+            // ✅ NEW: CHECK BALANCE
+            if (currentGuest.getBalance() < cost) {
+                showAlert("Error", "Not enough balance!");
+                return;
+            }
+
+            try {
+
+                // 5. Create reservation (YOUR ORIGINAL)
+                Reservation reservation = new Reservation(
+                        db.getReservations().size() + 1,
+                        selectedRoom,
+                        currentGuest,
+                        checkInDate,
+                        checkOutDate
+                );
+
+                // ✅ NEW: SET COST (only if your class has setter)
+                reservation.setTotalCost(cost);
+
+                // ✅ NEW: DEDUCT BALANCE
+                currentGuest.setBalance(currentGuest.getBalance() - cost);
+
+                db.addReservation(reservation);
+
+                showAlert("Success", "Reservation created successfully!");
+
+            } catch (Exception e) {
+                showAlert("Error", e.getMessage());
+            }
         }
         @FXML
         private void handleReset() {
+
+            // clear filters
+            typeField.clear();
+            priceField.clear();
+
+            // reload all rooms
             roomTable.setItems(FXCollections.observableArrayList(db.getRooms()));
         }
     }
