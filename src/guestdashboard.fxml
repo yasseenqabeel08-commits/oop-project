@@ -1,72 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
-<AnchorPane fx:controller="GuestDashboardController"
+<BorderPane fx:controller="GuestDashboardController"
             xmlns:fx="http://javafx.com/fxml"
-            prefWidth="800" prefHeight="600">
+            prefWidth="900" prefHeight="700">
 
-    <!-- 🔹 TOP LABEL -->
-    <Label fx:id="welcomeLabel" layoutX="200" layoutY="10" text="Welcome Guest!" />
+    <!-- 🔹 TOP -->
+    <top>
+        <Label fx:id="welcomeLabel"
+               text="Welcome Guest!"
+               style="-fx-padding: 10; -fx-font-size: 16;"/>
+    </top>
 
-    <!-- 🔹 PROFILE PANE -->
-    <VBox fx:id="profilePane" layoutX="200" layoutY="50" spacing="10" visible="false">
-        <Label text="Profile Information"/>
-        <Label fx:id="nameLabel" text="Name:"/>
-        <Label fx:id="balanceInfoLabel" text="Balance:"/>
-        <Label fx:id="addressLabel" text="Address:"/>
-    </VBox>
+    <!-- 🔹 LEFT SIDE MENU -->
+    <left>
+        <VBox spacing="15" style="-fx-padding: 15;">
+            <Button text="Profile" onAction="#handleProfile"/>
+            <Button text="Browse Rooms" onAction="#handleBrowseRooms"/>
+            <Button text="My Reservations" onAction="#handleMyReservations"/>
+            <Button text="Logout" onAction="#handleLogout"/>
+        </VBox>
+    </left>
 
-    <!-- 🔹 ROOMS PANE -->
-    <VBox fx:id="roomsPane" layoutX="200" layoutY="50" spacing="10" visible="false">
-        <Label text="Browse Rooms"/>
-    </VBox>
+    <!-- 🔹 CENTER CONTENT -->
+    <center>
+        <StackPane>
 
-    <!-- 🔹 RESERVATION PANE -->
-    <VBox fx:id="reservationPane" layoutX="200" layoutY="50" spacing="10" visible="false">
+            <!-- PROFILE -->
+            <VBox fx:id="profilePane" spacing="10" visible="false">
+                <Label text="Profile Information"/>
+                <Label fx:id="nameLabel" text="Name:"/>
+                <Label fx:id="balanceInfoLabel" text="Balance:"/>
+                <Label fx:id="addressLabel" text="Address:"/>
+            </VBox>
 
-        <TableView fx:id="bookingTable" prefWidth="600" prefHeight="200">
-            <columns>
-                <TableColumn fx:id="colRoom" text="Room"/>
-                <TableColumn fx:id="colCheckIn" text="Check In"/>
-                <TableColumn fx:id="colCheckOut" text="Check Out"/>
-                <TableColumn fx:id="colReservationStatus" text="Status"/>
-                <TableColumn fx:id="colStatus" text="Payment Status"/>
-            </columns>
-        </TableView>
+            <!-- ROOMS -->
+            <VBox fx:id="roomsPane" spacing="10" visible="false">
+                <Label text="Browse Rooms"/>
+            </VBox>
 
-        <Button text="View History" onAction="#handleViewHistory"/>
-        <Button text="View Active" onAction="#handleViewActive"/>
-        <Button text="Cancel Reservation" onAction="#handleCancelReservation"/>
-    </VBox>
+            <!-- RESERVATIONS -->
+            <VBox fx:id="reservationPane" spacing="10" visible="false">
 
-    <!-- 🔹 SIDE BUTTONS -->
-    <VBox layoutX="20" layoutY="50" spacing="15">
-        <Button text="Profile" onAction="#handleProfile"/>
-        <Button text="Browse Rooms" onAction="#handleBrowseRooms"/>
-        <Button text="My Reservations" onAction="#handleMyReservations"/>
-        <Button text="Logout" onAction="#handleLogout"/>
-    </VBox>
+                <TableView fx:id="bookingTable" prefHeight="250">
+                    <columns>
+                        <TableColumn fx:id="colRoom" text="Room"/>
+                        <TableColumn fx:id="colCheckIn" text="Check In"/>
+                        <TableColumn fx:id="colCheckOut" text="Check Out"/>
+                        <TableColumn fx:id="colReservationStatus" text="Status"/>
+                        <TableColumn fx:id="colStatus" text="Payment Status"/>
+                    </columns>
+                </TableView>
 
-    <!-- 🔹 CHAT BOX -->
-    <!-- 🔹 CHAT BOX -->
-    <VBox layoutX="200" layoutY="320" prefWidth="580" spacing="5">
+                <HBox spacing="10">
+                    <Button text="View History" onAction="#handleViewHistory"/>
+                    <Button text="View Active" onAction="#handleViewActive"/>
+                    <Button text="Cancel Reservation" onAction="#handleCancelReservation"/>
+                </HBox>
 
-        <TextArea fx:id="chatArea"
-                  editable="false"
-                  wrapText="true"
-                  prefHeight="150"
-                  minHeight="150"/>
+            </VBox>
 
-        <HBox spacing="10" alignment="CENTER_LEFT">
-            <TextField fx:id="messageField" prefWidth="480" HBox.hgrow="ALWAYS"/>
-            <Button text="Send" onAction="#sendMessage"/>
-        </HBox>
+        </StackPane>
+    </center>
 
-    </VBox>
+    <!-- 🔹 BOTTOM CHAT (FIXED 🔥) -->
+    <bottom>
+        <VBox spacing="5" style="-fx-padding: 10;">
 
-</AnchorPane>
+            <TextArea fx:id="chatArea"
+                      editable="false"
+                      wrapText="true"
+                      prefHeight="150"/>
+
+            <HBox spacing="10">
+                <TextField fx:id="messageField" HBox.hgrow="ALWAYS"/>
+                <Button text="Send" onAction="#sendMessage"/>
+            </HBox>
+
+        </VBox>
+    </bottom>
+
+</BorderPane>
