@@ -193,6 +193,7 @@ public class HotelDataBase {
         Reservation res1 = new Reservation(1, room1, Yassen, LocalDate.now().minusDays(1), LocalDate.now().plusDays(1));
         Reservation res2 = new Reservation(2, room8, Moaz, LocalDate.now().minusDays(1), LocalDate.now().plusDays(7));
         Reservation res3 = new Reservation(3, room5, Amy, LocalDate.now().minusDays(1), LocalDate.now().plusDays(4));
+        Reservation res4 = new Reservation(4, room9, layla, LocalDate.now().minusDays(1), LocalDate.now().plusDays(5));
 //            res1.confirm();
         res1.completed();
 //            res2.confirm();
@@ -201,6 +202,7 @@ public class HotelDataBase {
         reservations.add(res1);
         reservations.add(res2);
         reservations.add(res3);
+        reservations.add(res4);
         //Invoices Array
         Invoice inv1 = new Invoice(1, res1, PaymentMethod.CARD);
         inv1.markAsPaid();

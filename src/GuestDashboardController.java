@@ -1,3 +1,5 @@
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,13 +14,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.beans.property.SimpleStringProperty;
 import model.enums.ReservationStatus;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 public class GuestDashboardController {
 
-        @FXML
-        private Label welcomeLabel;
+    @FXML
+    private Label welcomeLabel;
 
-//        @FXML
+    //        @FXML
 //        private TextArea displayArea;
 //    @FXML
 //    private TableView<Room> roomTable;
@@ -28,24 +34,50 @@ public class GuestDashboardController {
 //    @FXML
 //    private TableColumn<Room, String> colPrice;
 //
-    @FXML private TableView<Reservation> bookingTable;
-    @FXML private TableColumn<Reservation, String> colRoom;
-    @FXML private TableColumn<Reservation, String> colStatus;
-    @FXML private TableColumn<Reservation, String> colCheckIn;
-    @FXML private TableColumn<Reservation, String> colCheckOut;
-    @FXML private TableColumn<Reservation, String> colReservationStatus;
-    @FXML private VBox profilePane;
-    @FXML private VBox roomsPane;
-    @FXML private VBox reservationPane;
-        private Guest currentGuest;
-    @FXML private Label balanceLabel;
-        private HotelDataBase db = HotelDataBase.getInstance();
-    @FXML private Label nameLabel;
-    @FXML private Label balanceInfoLabel;
-    @FXML private Label addressLabel;
-//    @FXML private TableView<Reservation> reservationTable;
+    @FXML
+    private TableView<Reservation> bookingTable;
+    @FXML
+    private TableColumn<Reservation, String> colRoom;
+    @FXML
+    private TableColumn<Reservation, String> colStatus;
+    @FXML
+    private TableColumn<Reservation, String> colCheckIn;
+    @FXML
+    private TableColumn<Reservation, String> colCheckOut;
+    @FXML
+    private TableColumn<Reservation, String> colReservationStatus;
+    @FXML
+    private VBox profilePane;
+    @FXML
+    private VBox roomsPane;
+    @FXML
+    private VBox reservationPane;
+    private Guest currentGuest;
+    @FXML
+    private Label balanceLabel;
+    private HotelDataBase db = HotelDataBase.getInstance();
+    @FXML
+    private Label nameLabel;
+    @FXML
+    private Label balanceInfoLabel;
+    @FXML
+    private Label addressLabel;
+    //    @FXML private TableView<Reservation> reservationTable;
+    Socket socket;
+    BufferedReader in;
+    PrintWriter out;
+    @FXML
+    private TextField messageField;
+    @FXML
+    private TextArea chatArea;
+
     @FXML
     public void initialize() {
+        chatArea.setVisible(true);
+        chatArea.setManaged(true);
+        chatArea.setPrefHeight(150);
+connect();
+
         if (currentGuest != null) {
             welcomeLabel.setText("Welcome " + currentGuest.getName());
         }
@@ -99,6 +131,7 @@ public class GuestDashboardController {
         showProfileInfo();
         balanceInfoLabel.setText("Balance: " + guest.getBalance());
         loadBookings();
+
     }
 
     @FXML
@@ -129,6 +162,7 @@ public class GuestDashboardController {
             controller.setGuest(currentGuest);
 
             Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+
             stage.setScene(new Scene(root));
 
         } catch (Exception e) {
@@ -137,42 +171,43 @@ public class GuestDashboardController {
     }
 
 
-        @FXML
-        private void handleMyReservations() {
-            profilePane.setVisible(false);
-            roomsPane.setVisible(false);
-            reservationPane.setVisible(true);
-            StringBuilder sb = new StringBuilder("My Reservations:\n");
-            for (Reservation r : db.getReservations()) {
-                if (r.getGuest().equals(currentGuest)) {
-                    sb.append("Reservation ID: ").append(r.getReservationId())
-                            .append(" | Room: ").append(r.getRoom().getRoomNumber())
-                            .append("\n");
-                }
+    @FXML
+    private void handleMyReservations() {
+        profilePane.setVisible(false);
+        roomsPane.setVisible(false);
+        reservationPane.setVisible(true);
+        StringBuilder sb = new StringBuilder("My Reservations:\n");
+        for (Reservation r : db.getReservations()) {
+            if (r.getGuest().equals(currentGuest)) {
+                sb.append("Reservation ID: ").append(r.getReservationId())
+                        .append(" | Room: ").append(r.getRoom().getRoomNumber())
+                        .append("\n");
             }
+        }
 
 //            displayArea.setText(sb.toString());
-        }
+    }
 
-        @FXML
-        private void handleLogout() {
-            try {
-                Stage stage = (Stage) welcomeLabel.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/login.fxml")
-                );
-                Parent root = loader.load();
-                Scene scene = new Scene(root);
-                scene.getStylesheets().add(
-                        getClass().getResource("/style.css").toExternalForm()
-                );
-                stage.setScene(scene);
-              //  stage.setScene(new Scene(root));
+    @FXML
+    private void handleLogout() {
+        try {
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/login.fxml")
+            );
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(
+                    getClass().getResource("/style.css").toExternalForm()
+            );
+            stage.setScene(scene);
+            //  stage.setScene(new Scene(root));
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
     private void loadBookings() {
 
         ObservableList<Reservation> list = FXCollections.observableArrayList();
@@ -188,11 +223,13 @@ public class GuestDashboardController {
 
         bookingTable.setItems(list);
     }
+
     private void showProfileInfo() {
         nameLabel.setText("Name: " + currentGuest.getName());
         balanceInfoLabel.setText("Balance: " + currentGuest.getBalance());
         addressLabel.setText("Address: " + currentGuest.getAddress());
     }
+
     @FXML
     private void handleCancelReservation() {
 
@@ -229,8 +266,8 @@ public class GuestDashboardController {
         }
 
 
-
     }
+
     @FXML
     private void handleViewHistory() {
 
@@ -247,10 +284,50 @@ public class GuestDashboardController {
 
         bookingTable.setItems(historyList);
     }
+
     @FXML
     private void handleViewActive() {
         loadBookings(); // THIS brings back active reservations
     }
 
+    private boolean connected = false;
+
+    public void connect() {
+        if (connected) return;
+        connected = true;
+
+        new Thread(() -> {
+            try {
+                socket = new Socket("localhost", 5000);
+                System.out.println("Connected!");
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                out = new PrintWriter(socket.getOutputStream(), true);
+                String msg;
+                while ((msg = in.readLine()) != null) {
+                    System.out.println("RECEIVED: " + msg);
+                    String finalMsg = msg;
+                    Platform.runLater(() -> {
+                        if (chatArea != null) {
+                            chatArea.appendText(finalMsg + "\n");
+                            chatArea.setScrollTop(Double.MAX_VALUE);
+                        }
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
+    @FXML
+    private void sendMessage(ActionEvent event) {
+        String msg = messageField.getText();
+
+        System.out.println("Sending: " + msg); // 👈 MUST PRINT
+
+        if (!msg.isEmpty()) {
+            out.println("Guest: " + msg);
+            messageField.clear();
+        }
+    }
+}
 

@@ -8,14 +8,10 @@
             fx:controller="LoginController">
 
     <center>
-        <VBox alignment="CENTER"
-              spacing="15"
-              style="-fx-padding: 30;">
-
+        <VBox spacing="10" alignment="CENTER" styleClass="card">
             <children>
 
-                <Label text="Login"
-                       style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                <Label text="Login" styleClass="title"/>
 
                 <TextField fx:id="usernameField"
                            promptText="Username"

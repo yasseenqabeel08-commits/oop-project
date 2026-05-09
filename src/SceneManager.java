@@ -13,7 +13,7 @@ import model.*;
 
                 Stage stage = (Stage) ((javafx.scene.Node) event.getSource())
                         .getScene().getWindow();
-
+                scene.getStylesheets().add(SceneManager.class.getResource("/style.css").toExternalForm());
                 stage.setScene(scene);
 
             } catch (Exception e) {

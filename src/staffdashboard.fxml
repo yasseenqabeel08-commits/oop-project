@@ -24,15 +24,41 @@
     </left>
 
     <!-- CENTER CONTENT -->
+    <!-- CENTER CONTENT -->
     <center>
-        <TableView fx:id="mainTable">
-            <columns>
-                <TableColumn fx:id="col1" text="Column 1"/>
-                <TableColumn fx:id="col2" text="Column 2"/>
-                <TableColumn fx:id="col3" text="Column 3"/>
-                <TableColumn fx:id="col4" text="Column 4"/>
-            </columns>
-        </TableView>
-    </center>
+        <VBox spacing="10" style="-fx-padding: 10;"
+              fillWidth="true"
+              VBox.vgrow="ALWAYS">
 
-</BorderPane>
+            <!-- TABLE -->
+            <TableView fx:id="mainTable" prefHeight="300" minHeight="200"
+                       VBox.vgrow="NEVER">
+                <columns>
+                    <TableColumn fx:id="col1" text="Column 1"/>
+                    <TableColumn fx:id="col2" text="Column 2"/>
+                    <TableColumn fx:id="col3" text="Column 3"/>
+                    <TableColumn fx:id="col4" text="Column 4"/>
+                </columns>
+            </TableView>
+
+            <!-- CHAT AREA -->
+            <TextArea fx:id="chatArea"
+                      editable="false"
+                      wrapText="true"
+                      prefHeight="150"
+                      minHeight="150"
+                      maxHeight="200"
+                      VBox.vgrow="ALWAYS"/>
+
+        </VBox>
+    </center>
+        <bottom>
+            <HBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+                <TextField fx:id="messageField" prefWidth="200"/>
+                <Button text="Send" onAction="#sendMessage"/>
+            </HBox>
+        </bottom>
+
+    </BorderPane>
+
+<!--</BorderPane>-->

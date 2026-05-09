@@ -2,7 +2,9 @@ import HotelRooms.Reservation;
 import javafx.beans.property.SimpleStringProperty;
 import HotelRooms.Room;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.media.MediaPlayer;
 import model.HotelDataBase;
@@ -13,6 +15,11 @@ import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import model.enums.ReservationStatus;
+import java.io.*;
+import java.net.*;
+import javafx.application.Platform;
+
+import java.io.IOException;
 
 public class StaffDashboardController {
 
@@ -21,6 +28,14 @@ public class StaffDashboardController {
     private Label welcomeLabel;
 
     private Staff currentStaff;
+    @FXML
+    private TextArea chatArea;
+
+    @FXML
+    private TextField messageField;
+    private Socket socket;
+    private BufferedReader in;
+    private PrintWriter out;
 
 //    @FXML private TableView<Reservation> reservationTable;
 
@@ -37,42 +52,27 @@ public class StaffDashboardController {
     @FXML
     public void initialize() {
 
-//        colId.setCellValueFactory(data ->
-//                new SimpleStringProperty(
-//                        String.valueOf(data.getValue().getReservationId())
-//                )
-//        );
-//
-//        colGuest.setCellValueFactory(data ->
-//                new SimpleStringProperty(
-//                        data.getValue().getGuest().getName()
-//                )
-//        );
-//
-//        colRoom.setCellValueFactory(data ->
-//                new SimpleStringProperty(
-//                        data.getValue().getRoom().getRoomNumber()
-//                )
-//        );
-//
-//        colStatus.setCellValueFactory(data ->
-//                new SimpleStringProperty(
-//                        data.getValue().getStatus().toString()
-//                )
-//        );
-    }
+
+
+            handleViewRooms();
+
+            connect();
+        }
+
+
+
     @FXML
     private void handleCheckIn() {
 
         Object selectedItem = mainTable.getSelectionModel().getSelectedItem();
 
-        // 1️⃣ Nothing selected
+
         if (selectedItem == null) {
             showAlert("Please select a reservation first!");
             return;
         }
 
-        // 2️⃣ Wrong type (e.g. rooms instead of reservations)
+
         if (!(selectedItem instanceof Reservation)) {
             showAlert("Please select a reservation (not a room)!");
             return;
@@ -142,24 +142,19 @@ public class StaffDashboardController {
         }
     }
 
-        @FXML
-        private void handleLogout() {
-            try {
-                Stage stage = (Stage) welcomeLabel.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/login.fxml")
-                );
-                Parent root = loader.load();
-                Scene scene = new Scene(root);
-                scene.getStylesheets().add(
-                        getClass().getResource("/style.css").toExternalForm()
-                );
-                stage.setScene(scene);
+    @FXML
+    private void handleLogout(ActionEvent event) throws IOException {
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        Parent root = loader.load(); // ✅ NEW instance every time
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        Scene scene = new Scene(root);
+
+        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+        stage.setScene(scene);
+    }
     @FXML
     private void handleViewReservations() {
         mainTable.getItems().clear();
@@ -200,6 +195,46 @@ public class StaffDashboardController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText(message);
         alert.show();
+    }
+    @FXML
+    private void sendMessage(ActionEvent event) {
+        String msg = messageField.getText();
+
+        System.out.println("Sending: " + msg);
+
+        if (!msg.isEmpty()) {
+            out.println("Staff: " + msg);
+            messageField.clear();
+        }
+    }
+    private boolean connected = false;
+
+    public void connect() {
+        if (connected) return;
+        connected = true;
+
+        new Thread(() -> {
+            try {
+                socket = new Socket("localhost", 5000);
+                System.out.println("Connected!");
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                out = new PrintWriter(socket.getOutputStream(), true);
+                String msg;
+                while ((msg = in.readLine()) != null) {
+                    System.out.println("RECEIVED: " + msg);
+                    String finalMsg = msg;
+                    Platform.runLater(() -> {
+                        if (chatArea != null) {
+                            chatArea.setText(chatArea.getText() + finalMsg + "\n"); // use setText instead of appendText
+                            chatArea.setScrollTop(Double.MAX_VALUE);
+                            System.out.println("chatArea text is now: " + chatArea.getText()); // debug
+                        }
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     }

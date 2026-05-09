@@ -7,13 +7,14 @@
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml">
     <Button text="Logout" onAction="#handleLogout"/>
-
+    <TextArea fx:id="chatArea" prefHeight="200"/>
+    <TextField fx:id="messageField"/>
+    <Button text="Send" onAction="#sendMessage"/>
     <children>
         <Label text="Welcome to Dashboard 🎉"
                layoutX="120" layoutY="130"/>
     </children>
     <VBox spacing="10" style="-fx-padding: 10;">
-
         <Label text="My Reservations" style="-fx-font-size: 16px;"/>
 
 

@@ -1,24 +1,106 @@
+/* ================= ROOT ================= */
 .root {
     -fx-font-family: "Segoe UI";
-    -fx-background-color: #f5f5f5;
+    -fx-background-color: #f4f6f8;
 }
 
-.label {
-    -fx-text-fill: #333;
-}
-
+/* ================= BUTTONS ================= */
 .button {
-    -fx-background-color: #4CAF50;
+    -fx-background-color: #2c7be5;
     -fx-text-fill: white;
+    -fx-font-size: 14px;
     -fx-background-radius: 8;
+    -fx-cursor: hand;
 }
 
 .button:hover {
-    -fx-background-color: #45a049;
+    -fx-background-color: #1a5fd0;
 }
 
+.button:pressed {
+    -fx-background-color: #144a9e;
+}
+
+/* Optional secondary button */
+.button.secondary {
+    -fx-background-color: #6c757d;
+}
+
+.button.secondary:hover {
+    -fx-background-color: #5a6268;
+}
+
+/* ================= TEXT FIELDS ================= */
 .text-field, .password-field {
-    -fx-background-radius: 8;
-    -fx-border-radius: 8;
-    -fx-border-color: #ccc;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: #dcdcdc;
+    -fx-padding: 6;
+}
+
+/* ================= LABELS ================= */
+.label {
+    -fx-text-fill: #333;
+    -fx-font-size: 13px;
+}
+
+/* Titles */
+.title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+/* ================= CARDS / PANELS ================= */
+.card {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 4);
+}
+
+/* ================= TABLE VIEW ================= */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-radius: 10;
+}
+
+.table-view .column-header {
+    -fx-background-color: #2c7be5;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+}
+
+/* ================= COMBO BOX ================= */
+.combo-box {
+    -fx-background-radius: 6;
+}
+
+/* ================= DATE PICKER ================= */
+.date-picker {
+    -fx-background-radius: 6;
+}
+
+/* ================= ALERT / ERROR TEXT ================= */
+.error-label {
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+}
+
+/* ================= SUCCESS TEXT ================= */
+.success-label {
+    -fx-text-fill: green;
+    -fx-font-size: 12px;
+    }
+    /* ================= CHAT TEXT AREA ================= */
+    .text-area {
+        -fx-background-color: white;
+        -fx-text-fill: #333333;
+    }
+
+    .text-area .content {
+        -fx-background-color: white;
+        -fx-text-fill: #333333;
+    }
 }

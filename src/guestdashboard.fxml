@@ -2,13 +2,15 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.control.*?>
 
 <AnchorPane fx:controller="GuestDashboardController"
             xmlns:fx="http://javafx.com/fxml"
             prefWidth="800" prefHeight="600">
 
-    <!-- 🔹 REQUIRED (used for navigation) -->
+    <!-- 🔹 TOP LABEL -->
     <Label fx:id="welcomeLabel" layoutX="200" layoutY="10" text="Welcome Guest!" />
 
     <!-- 🔹 PROFILE PANE -->
@@ -27,9 +29,6 @@
     <!-- 🔹 RESERVATION PANE -->
     <VBox fx:id="reservationPane" layoutX="200" layoutY="50" spacing="10" visible="false">
 
-
-
-        <!-- ✅ TABLE USED FOR DISPLAY -->
         <TableView fx:id="bookingTable" prefWidth="600" prefHeight="200">
             <columns>
                 <TableColumn fx:id="colRoom" text="Room"/>
@@ -40,12 +39,9 @@
             </columns>
         </TableView>
 
-<!--        &lt;!&ndash; ✅ TABLE USED FOR SELECTION (cancel) &ndash;&gt;-->
-<!--        <TableView fx:id="reservationTable" prefWidth="600" prefHeight="200"/>-->
         <Button text="View History" onAction="#handleViewHistory"/>
         <Button text="View Active" onAction="#handleViewActive"/>
         <Button text="Cancel Reservation" onAction="#handleCancelReservation"/>
-
     </VBox>
 
     <!-- 🔹 SIDE BUTTONS -->
@@ -54,6 +50,23 @@
         <Button text="Browse Rooms" onAction="#handleBrowseRooms"/>
         <Button text="My Reservations" onAction="#handleMyReservations"/>
         <Button text="Logout" onAction="#handleLogout"/>
+    </VBox>
+
+    <!-- 🔹 CHAT BOX -->
+    <!-- 🔹 CHAT BOX -->
+    <VBox layoutX="200" layoutY="320" prefWidth="580" spacing="5">
+
+        <TextArea fx:id="chatArea"
+                  editable="false"
+                  wrapText="true"
+                  prefHeight="150"
+                  minHeight="150"/>
+
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <TextField fx:id="messageField" prefWidth="480" HBox.hgrow="ALWAYS"/>
+            <Button text="Send" onAction="#sendMessage"/>
+        </HBox>
+
     </VBox>
 
 </AnchorPane>

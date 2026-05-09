@@ -24,7 +24,7 @@ public class Main extends Application {
         // Load first screen (change to welcome.fxml if you create it)
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Welcome.fxml"));
         Scene scene = new Scene(loader.load());
-
+        scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         stage.setTitle("Hotel Reservation System");
         stage.setScene(scene);
         stage.show();
@@ -33,6 +33,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         // Initialize database once
         HotelDataBase.getInstance().populateDummyData();
+        System.out.println("DB location: " + new java.io.File("hotel.db").getAbsolutePath());
 
         // Launch JavaFX
         launch(args);

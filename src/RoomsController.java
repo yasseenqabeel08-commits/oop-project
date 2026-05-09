@@ -1,5 +1,7 @@
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
@@ -84,6 +86,37 @@ public class RoomsController {
         poolCheck.setOnAction(e -> loadRooms());
         gymCheck.setOnAction(e -> loadRooms());
         jacuzziCheck.setOnAction(e -> loadRooms());
+        Task<Void> loadRoomsTask = new Task<>() {
+            @Override
+            protected Void call() {
+                // simulate loading
+                List<Room> rooms = db.getRooms();
+
+                Platform.runLater(() -> {
+                    roomTable.getItems().setAll(rooms);
+                });
+
+                return null;
+            }
+        };
+
+        new Thread(loadRoomsTask).start();
+        new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(5000); // refresh every 5 sec
+
+                    List<Room> rooms = db.getRooms();
+
+                    Platform.runLater(() -> {
+                        roomTable.getItems().setAll(rooms);
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     public void setGuest(Guest guest) {
@@ -114,7 +147,9 @@ public class RoomsController {
             Stage stage =
                     (Stage) roomTable.getScene().getWindow();
 
-            stage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
+            stage.setScene(scene);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -346,4 +381,6 @@ public class RoomsController {
 
         roomTable.getItems().setAll(filtered);
     }
+
+
 }
