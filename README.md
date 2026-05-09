@@ -41,8 +41,10 @@ This project was developed as part of the Object-Oriented Programming course req
 src/
 │
 ├── model/
-├── controller/
 ├── HotelRooms/
+|---controller classes
+|----FXML
+|---ChatServer
 └── Main.java
 ```
 
